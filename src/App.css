@@ -36,7 +36,7 @@ html, body, #root {
   /* display: flex; */
   /* align-items: center; */
   /* justify-content: center; */
-  padding-top: 180px;
+  padding-top: 100px;
   min-height: 100vh;   
 
  
@@ -200,11 +200,11 @@ html, body, #root {
 .nextButtonGame {
   background-color: #952264;
   color: white;
-  border-radius: 20px;
-  width: 150px;
-  height: 58px;
-  padding: 10px;
+  border-radius: 8px;
+  width: 180px;
+  height: 38px;
   margin-top: 30px;
+  
   animation: shake 0.5s; /* Apply the shake animation */
   animation-iteration-count: 5; 
   animation-duration: 1.3s;
@@ -693,3 +693,34 @@ html, body, #root {
 
 
 
+
+/* const circlePositions = [
+  { x: 139, y: 455 },
+  { x: 45, y: 454 },
+  { x: 96, y: 96 },
+  { x: 507, y: 104 },
+  { x: 324, y: 102 },
+  { x: 245, y: 271 },
+  { x: 686, y: 268 },
+  { x: 744, y: 325 },
+  { x: 554, y: 337 },
+  { x: 303, y: 337 },
+
+ 
+]; */
+
+
+/* const circlePositions = [
+  { x: 711, y: 481 },
+  { x: 65, y: 412 },
+  { x: 306, y: 302 },
+  { x: 132, y: 50 },
+  { x: 196, y: 259 },
+  { x: 631, y: 134 },
+  { x: 560, y: 186 },
+  { x: 899, y: 329 },
+  { x: 471, y: 95 },
+  { x: 472, y: 359 },
+
+
+]; */

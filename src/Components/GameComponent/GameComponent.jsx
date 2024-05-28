@@ -49,7 +49,7 @@ export const GameComponent = ({ currentLevel }) => {
   const ctxRef = useRef(null);
   const intervalRef = useRef(null);
 
-  const initialCanvasWidth = 960;
+  const initialCanvasWidth =  960;
   const initialCanvasHeight = 540;
 
   // Set initial canvas size based on the window size
@@ -86,27 +86,15 @@ export const GameComponent = ({ currentLevel }) => {
     { x: 68, y: 443 },
   ];
 
-  // Update canvas size on window resize
+  //// Update canvas size on window resize
   // useEffect(() => {
   //   const handleResize = () => {
-  //     setCanvasSize({
-  //       width: window.innerWidth > initialCanvasWidth ? initialCanvasWidth - (window.innerWidth * 0.1) : window.innerWidth - (window.innerWidth * 0.1),
-  //       height: window.innerHeight > initialCanvasHeight ? initialCanvasHeight : window.innerHeight * (initialCanvasHeight / initialCanvasWidth)
-  //     });
+  //     setCanvasSize(calculateCanvasSize());
   //   };
 
   //   window.addEventListener('resize', handleResize);
   //   return () => window.removeEventListener('resize', handleResize);
   // }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setCanvasSize(calculateCanvasSize());
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
 
 
@@ -357,14 +345,14 @@ export const GameComponent = ({ currentLevel }) => {
           <div className="row">
             <div className="col-md-12 block">
               <div className="titleZok">
-                <h4>Where’s Betaloc ZOK?</h4>
+                <h4>Where is Betaloc ZOK?</h4>
                 <h5>Choose as much as Betaloc ZOK boxes as you can </h5>
               </div>
             </div>
           </div>
 
           <div className="row justify-center items-center">
-            <div className="col-12 col-sm-10 col-lg-10 col-xl-9">
+            <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9" >
               <img id="scream" src={can} alt="" style={{ display: "none" }} />
               <audio id="fileSound" src={audioFile} style={{ display: "none" }}></audio>
               <audio id="wrongSound" src={wrongClick} style={{ display: "none" }}></audio>
@@ -376,10 +364,8 @@ export const GameComponent = ({ currentLevel }) => {
                 onClick={handleCanvasClick}
               ></canvas>
             </div>
-            <div className="col-12 col-lg-12 col-xl-3">
-
+            <div className="col-12 col-lg-2 col-xl-3">
               <div className="countButton" id="counter-button">
-
                 <h5>Maximum of <span className="number">   {correctSelections}</span> Boxes </h5>
                 <div className="logoDescr">
                   <img  src={logo} alt="Description" />
@@ -400,11 +386,13 @@ export const GameComponent = ({ currentLevel }) => {
                   </div>
                 </div>
               </div>
+              
             </div>
+            
           </div>
 
           <div className="row justify-center items-center">
-            <div className="col-12">
+            <div className="col-6">
               <div className="buttonBN">
                 <div className="text-center">
                   <Link to="/ChoosePage">
@@ -413,18 +401,22 @@ export const GameComponent = ({ currentLevel }) => {
                     </button>
                   </Link>
                 </div>
-                <div className="text-center">
+             
+              </div>
+            </div>
+            <div className="col-6">  
+             <div className="text-center buttonBN">
                   <Link to="/Level2Component">
                     {selectedBoxes >= 6 && (
-                      <button id="next-level-button" className="nextButtonGame" onClick={handleWin}>To Next Theme</button>
+                      <button id="next-level-button" className=" nextButtonGame" onClick={handleWin}>To Next Theme</button>
                     )}
                   </Link>
                 </div>
-              </div>
-            </div>
+                </div>
           </div>
 
         </div>
+        
         <div className="scoreContainer">
           <h5>Your Score <span className="scoreValue">{score}</span></h5>
           <div>
