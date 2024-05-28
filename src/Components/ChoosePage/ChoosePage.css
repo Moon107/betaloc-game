@@ -1,0 +1,165 @@
+.logoContainer1, .logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleChoose,
+.titleChoose1 {
+    color: white;
+    text-align: center;
+    margin: 40px 40px 0 10px;
+    /* padding: 20px; */
+}
+.blocksGame {
+   
+    margin-top: 55px;
+    width: 370px;
+    height: 310px;
+    
+}
+/* .image3 {
+    height: 340px;
+} */
+.blocksGame img {
+    border-radius: 10px;
+    width: 100%;
+}
+.blocksGame:hover {
+    scale: 1.2;
+    transition: 0.2s ease-in-out;
+}
+.coinImage2 {
+    width: 15px;
+    margin-left: 20px;
+    padding-bottom: 5px;
+   
+}
+.parent-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+.titleLevel {
+    text-align: center;
+    color: white;
+    padding: 10px;
+}
+.scoreTit {
+    color: #952264;
+}
+.logoContainer .titleLevel {
+    text-align: center;
+}
+
+/* Add this CSS to your stylesheet */
+@media (max-width: 413px) {
+    .logoContainer1 {
+        display: flex;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        flex-direction: column !important;
+       
+    }
+    .groupCont {
+        margin-top: 10px;
+    }
+    .titleChoose h2 {
+        font-size: 18px;
+    }
+      
+    .titleChoose h4 {
+        font-size: 16px;
+    }
+    .titleChoose1 {
+        font-size: 16px;
+        margin: 40px 0px 20px 0px;
+    }
+    .groupCont {
+        margin-top: 10px;
+    }
+    .logoContainer {
+        width: 100%;
+        margin-left: 5px;
+    
+    }
+    .logoContainer .titleLevel{
+        font-size: 14px;
+     }
+     .logoContainer {
+        display: flex;
+        flex-wrap: wrap;
+   
+    }
+    .blocksGame {
+        width: 290px;
+       }
+    .playContainer {
+        margin-bottom: 80px;
+        margin-right: 10px;
+     }
+
+}
+
+
+  @media (min-width: 414px) and (max-width: 576px) {
+    .logoContainer {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5px;
+      
+    }
+    .playContainer {
+        margin-bottom: 80px;
+        margin-right: 10px;
+     }
+  }
+
+  @media (min-width: 577px) and (max-width: 767px) {
+    .logoContainer {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 40px;
+    }
+    .playContainer {
+        margin-bottom: 30px;
+        margin-right: 10px;
+     }
+  
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .logoContainer {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 40px;
+    }
+    .playContainer {
+        margin-bottom: 30px;
+  
+     }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    .logoContainer {
+        display: flex;
+        flex-wrap: wrap;
+   
+    }
+    .playContainer {
+        margin-bottom: 30px;
+     
+     }
+     .blocksGame {
+        margin-right: 40px;
+       }
+  }
+  @media (min-width: 1440px) {
+   .blocksGame {
+    margin-right: 40px;
+   }
+  }
+  

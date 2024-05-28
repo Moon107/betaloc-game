@@ -1,0 +1,50 @@
+{
+    
+    "data": [
+        {
+            "id":1,
+            "question":" According to the European Society of Cardiology recommendations, regarding the treatment strategy for hypertension with coronary artery diseases, Beta-blockers should be considered in the following treatment steps:",
+            "firstChoice": "A)  Step 2 and Step 3 only ",
+            "secondChoice": "B} Initial therapy only  ",
+            "thirdChoice": "C) At any treatment step",
+            "correctChoice": "C) At any treatment step"
+        },
+        {
+            "id":2,
+            "question": " According to the ACC/AHA task force report, to treat hypertension in patients with stable ischaemic heart disease, Beta-blockers are recommended as a:",
+            "firstChoice": "A)  First-line therapy",
+            "secondChoice": "B}  Second-line therapy",
+            "thirdChoice": "C) Last line therapy",
+            "correctChoice": "A)  First-line therapy"
+        }
+   
+    ],
+    "content": [
+        {
+            "id":1,
+            "question":"  Betaloc ZOK is the only Beta-blocker approved with 7 indications including the following:",
+            "firstChoice": "A) Angina Pectoris, cardiac arrhythmias and hypertension",
+            "secondChoice": "B} Stable symptomatic chronic heart failure ",
+            "thirdChoice": "C)  Both A & B ",
+            "correctChoice": "C)  Both A & B "
+        },
+        {
+            "id":2,
+            "question": " According to the European Society of Cardiology, Attention to good blood pressure control is recommended in AF patients with hypertension to:",
+            "firstChoice": "A)   Reduce AF recurrences",
+            "secondChoice": "B}   Reduce the risk of stroke and bleeding. ",
+            "thirdChoice": "C) Both A & B",
+            "correctChoice": "C) Both A & B"
+        },
+        {
+            "id":3,
+            "question": "according to the ESC guidelines for rate control drugs in Atrial Fibrillation, Beta-blockers are the first line treatment with the following comorbidities EXCEPT:",
+            "firstChoice": "A)   Hypertension or HFpEF ",
+            "secondChoice": "B}   HFrEF ",
+            "thirdChoice": "C)  Asthma",
+            "correctChoice": "C)  Asthma"
+        }
+
+    ]
+    
+}

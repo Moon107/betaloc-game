@@ -1,0 +1,278 @@
+.ReactModal__Overlay {
+    background: rgba(0,0,0,0.4) !important ;
+}
+
+.DoneContent {
+    color: white;
+    width: 700px;
+    height: 450px;
+    border-radius: 10px;
+    background-color: #952264 ;
+    text-align: center;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.DoneModalBox {
+    height: 100vh;
+    /* background: rgba(0,0,0,0.5) !important ; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.modalContainer,
+.modalContainer1 {
+    background-color: white ;
+    /* color: #952264; */
+    width: 100%;
+    padding: 10px 0px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+
+}
+.ContinueButton, 
+.ContinueButton1 {
+    background-color: #952264;
+    color: white;
+    border-radius: 20px;
+    width: 100px;
+    height: 48px;
+    padding: 10px;
+    
+    margin: 10px 0px;
+}
+
+.titleExcellent {
+    color: #321A58;
+    font-weight: bold;
+}
+
+.paragraph {
+    color: #321A58;
+    font-size: 24px;
+}
+.plus {
+    color: #952264;
+    font-size: 32px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+.rightImage {
+    width: 55px;
+    /* margin-right: 10px; */
+}
+.numberzero {
+    color: #952264;
+    font-size: 32px;
+    font-weight: bold;
+}
+.paragraphWrong {
+    color: #321A58;
+   margin-left: 60px;
+    text-align: center;
+    font-size: 24px;
+}
+
+@media (max-width: 374px) {
+    .DoneContent {
+        width: 300px;
+        height: 370px;
+ 
+     }
+     .titleExcellent {
+        font-size: 14px;
+        
+    }
+   
+    .paragraph{
+        font-size: 16px;
+        padding-left: 40px;
+    }
+    .paragraphWrong {
+        font-size: 14px;
+        padding-right: 10px;
+    }
+    .modalContainer {
+        height: 230px;
+    }
+    .rightImage {
+        width: 40px;
+    }
+    .modalContainer1 {
+        height: 280px;
+        padding-right: 20px;
+    }
+    .numberzero {
+        font-size: 20px;
+        padding-left: 20px;
+    }
+    .ContinueButton1 {
+        margin-bottom:  20px;
+        width: 90px;
+        height: 48px;
+    }
+    .contButt {
+        padding-left: 20px;
+    }
+    }
+@media (min-width: 375px) and (max-width: 413px) {
+    .DoneContent {
+        width: 340px;
+        height: 400px;
+ 
+     }
+     .titleExcellent {
+        font-size: 14px;
+        
+    }
+   
+    .paragraph{
+        font-size: 16px;
+        padding-left: 40px;
+    }
+    .paragraphWrong {
+        font-size: 16px;
+        padding-right: 10px;
+    }
+    .modalContainer {
+        height: 230px;
+    }
+    .rightImage {
+        width: 40px;
+    }
+    .modalContainer1 {
+        height: 280px;
+        padding-right: 20px;
+    }
+    .numberzero {
+        font-size: 20px;
+        padding-left: 20px;
+    }
+    .ContinueButton1 {
+        margin-bottom:  20px;
+        width: 90px;
+        height: 48px;
+
+    }
+    .contButt {
+        padding-left: 20px;
+    }
+    }
+
+@media (min-width: 414px) and (max-width: 576px) {
+    .DoneContent {
+       width: 380px;
+       height: 380px;
+
+    }
+    .titleExcellent {
+        font-size: 18px;
+        
+    }
+   
+    .paragraph
+   {
+        font-size: 20px;
+        padding-left: 40px;
+    }
+    .paragraphWrong {
+        font-size: 16px;
+        padding-right: 10px;
+    }
+    .modalContainer {
+        height: 230px;
+    }
+    .rightImage {
+        width: 40px;
+    }
+    .modalContainer1 {
+        height: 280px;
+        padding-right: 20px;
+    }
+    .numberzero {
+        font-size: 20px;
+        padding-left: 20px;
+    }
+    .ContinueButton1 {
+        margin-bottom:  20px;
+        width: 90px;
+        height: 48px;
+    }
+    .contButt {
+        padding-left: 20px;
+    }
+}
+@media (min-width: 577px) and (max-width: 767px) {
+    .DoneContent {
+        width: 500px;
+        height: 360px;
+
+    }
+    .titleExcellent {
+        font-size: 18px;
+        
+    }
+   
+    .paragraph 
+    {
+        font-size: 20px;
+    }
+    .paragraphWrong {
+        font-size: 18px;
+        padding-right: 28px;
+    }
+    .modalContainer1 {
+        height: 270px;
+        padding-right: 20px;
+    }
+    .modalContainer {
+        height: 230px;
+    }
+    .rightImage {
+        width: 40px;
+    }
+    .numberzero {
+        font-size: 20px;
+        padding-left: 20px;
+    }
+    .ContinueButton1 {
+        margin-bottom:  20px;
+    }
+    .contButt {
+        padding-left: 20px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .DoneContent {
+        width: 580px;
+        height: 400px;
+
+    }
+    .titleExcellent {
+        font-size: 18px;
+        
+    }
+   
+    .paragraph
+    {
+        font-size: 20px;
+    }
+    .paragraphWrong {
+        font-size: 20px;
+        padding-right: 28px;
+    }
+    .rightImage {
+        width: 45px;
+    }
+
+  }
+
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    .rightImage {
+        width: 50px;
+    }
+  }
