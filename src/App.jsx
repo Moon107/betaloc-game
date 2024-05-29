@@ -30,7 +30,7 @@ function App() {
       <LevelProvider>
         <ScoreProvider>
           <UserNameProvider>
-            <BrowserRouter >
+            <BrowserRouter basename="/test_game">
 
               <Routes>
                 <Route index element={<Home />} />
