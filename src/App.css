@@ -539,6 +539,11 @@ html, body, #root {
 
  
 } 
+@media (min-width: 768px) and (max-width: 1200px) {
+  .gamContent {
+    padding-top: 275px;
+  }
+}
 @media (min-width: 768px) and (max-width: 1023px) {
   /* canvas {
     width: 590px;
@@ -693,34 +698,3 @@ html, body, #root {
 
 
 
-
-/* const circlePositions = [
-  { x: 139, y: 455 },
-  { x: 45, y: 454 },
-  { x: 96, y: 96 },
-  { x: 507, y: 104 },
-  { x: 324, y: 102 },
-  { x: 245, y: 271 },
-  { x: 686, y: 268 },
-  { x: 744, y: 325 },
-  { x: 554, y: 337 },
-  { x: 303, y: 337 },
-
- 
-]; */
-
-
-/* const circlePositions = [
-  { x: 711, y: 481 },
-  { x: 65, y: 412 },
-  { x: 306, y: 302 },
-  { x: 132, y: 50 },
-  { x: 196, y: 259 },
-  { x: 631, y: 134 },
-  { x: 560, y: 186 },
-  { x: 899, y: 329 },
-  { x: 471, y: 95 },
-  { x: 472, y: 359 },
-
-
-]; */

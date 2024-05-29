@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import firstLogo from "../../images/Group18.png";
 import secondLogo from "../../images/VectorSmartObject.png";
 import logo from "../../images/Frame55.png";
-import can from "../../images/medical.jpg";
+import can from "../../images/SecThemeHigh.jpg";
 import audioFile from "../../audios/collect-points.mp3";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { PreLoader } from "../PreLoader/PreLoader";
