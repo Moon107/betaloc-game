@@ -275,7 +275,7 @@ export const Level2Component = ({ currentLevel }) => {
           clearInterval(intervalRef.current);
           setTimeLeft(0);
           const startButton = document.getElementById("start-game");
-          startButton.innerHTML = "00m:00s";
+          startButton.innerHTML = "Start";
           setShowWinModal(true);
           // localStorage.setItem("score", totalScore);
           setGameStarted(false);
@@ -328,117 +328,106 @@ export const Level2Component = ({ currentLevel }) => {
   };
 
   return (
-    <div className="box">
-      <PreLoader />
-      <div className="container-fluid overflow-auto flex items-center justify-center ">
-        <div className="sideHome">
-          <img className="w-100 mx-2" src={firstLogo} alt="" />
-          <img className="w-100" src={secondLogo} alt="" />
+    <div className="box overflow-auto ">
+    <PreLoader />
+    <div className="container-fluid  flex items-center justify-center">
+      <div className="sideHome">
+        <img className="w-100 mx-2" src={firstLogo} alt="" />
+        <img className="w-100" src={secondLogo} alt="" />
+
+      </div>
+      <div className="gamContent">
+
+        <div className="row">
+          <div className="col-md-12 block">
+            <div className="titleZok">
+              <h4>Where is Betaloc ZOK?</h4>
+              <h5>Choose as much as Betaloc ZOK boxes as you can </h5>
+            </div>
+          </div>
         </div>
 
-        <div className="gamContent">
-          <div className="row">
-            <div className="col-md-12 block ">
-              <div className=" titleZok">
-                <h4>Where is Betaloc ZOK?</h4>
-                <h5>Choose as much as Betaloc ZOK boxes as you can </h5>
+        <div className="row justify-center items-center">
+          <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9 boxImageee" >
+            <img id="scream" src={can} alt="" style={{ display: "none" }} />
+            <audio id="fileSound" src={audioFile} style={{ display: "none" }}></audio>
+            <audio id="wrongSound" src={wrongClick} style={{ display: "none" }}></audio>
+            <canvas
+              ref={canvasRef}
+              id="canvas"
+              width={canvasSize.width}
+              height={canvasSize.height}
+              onClick={handleCanvasClick}
+            ></canvas>
+          </div>
+          <div className="col-12 col-lg-7 col-xl-3">
+               <div className="timeBox">
+               <div className="betalContainer">
+            <div className="countButton" id="counter-button">
+              <h5>Maximum of <span className="number">   {correctSelections}</span> Boxes </h5>
+              <div className="logoDescr">
+                <img  src={logo} alt="Description" />
               </div>
+
+              </div>
+              <div className="timerBox">
+                  <button
+                    id="start-game"
+                    className="timer-button"
+                    disabled={gameStarted}
+                    onClick={() => {
+                      startCountdown(60);
+                    }}
+                  >
+                    Start {timeLeft}s
+                  </button>
+                  <h6 className="italic mt-2 clickText">Click here to start the Game</h6>
+                </div>
+               </div>
+              
+
+            </div>
+
+            
+          </div>
+          
+        </div>
+
+       <div className="row justify-center items-center buttonBox">
+          <div className="col-12 col-lg-3">
+            <div className="buttonBN">
+              <div className="text-center">
+                <Link to="/ChoosePage">
+                  <button onClick={() => clearInterval(intervalRef.current)} className="btn btn-light backbutton ">
+                    Back
+                  </button>
+                </Link>
+              </div>
+           
             </div>
           </div>
-
-          <div className="row justify-center items-center">
-            <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9">
-              <img id="scream" src={can} alt="" style={{ display: "none" }} />
-              <audio
-                id="fileSound"
-                src={audioFile}
-                style={{ display: "none" }}
-              ></audio>
-              <audio
-                id="wrongSound"
-                src={wrongClick}
-                style={{ display: "none" }}
-              ></audio>
-              <canvas
-                ref={canvasRef}
-                id="canvas"
-                width={canvasSize.width}
-                height={canvasSize.height}
-                onClick={handleCanvasClick}
-              ></canvas>
-            </div>
-            <div className="col-12 col-lg-2 col-xl-3">
-              <div className="countButton" id="counter-button">
-                <h5>
-                  Maximum of{" "}
-                  <span className="number"> {correctSelections}</span> Boxes{" "}
-                </h5>
-                <div className="logoDescr">
-                  <img src={logo} alt="Description" />
-                </div>
-                <div className="betalContainer">
-                  <div>
-                    <button
-                      id="start-game"
-                      className="timer-button"
-                      disabled={gameStarted}
-                      onClick={() => {
-                        startCountdown(60);
-                      }}
-                    >
-                      Start {timeLeft} s
-                    </button>
-
-                    <h6 className="italic mt-2 clickText">
-                      Click here to start the Game
-                    </h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row justify-center items-center">
-            <div className="col-6">
-              <div className="buttonBN">
-                <div className="text-center">
-                  <Link to="/ChoosePage">
-                    <button
-                      onClick={() => clearInterval(intervalRef.current)}
-                      className="btn btn-light backbutton "
-                    >
-                      Back
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="text-center buttonBN">
+          <div className="col-12 col-lg-3">  
+           <div className="text-center buttonBN">
                 <Link to="/Level3Component">
                   {selectedBoxes >= 6 && (
-                    <button
-                      id="next-level-button"
-                      className=" nextButtonGame"
-                      onClick={handleWin}
-                    >
-                      To Next Theme
-                    </button>
+                    <button id="next-level-button" className=" nextButtonGame" onClick={handleWin}>To Next Theme</button>
                   )}
                 </Link>
               </div>
-            </div>
-          </div>
+              </div>
         </div>
 
-        <div className="scoreContainer">
-          <h5>
-            Your Score <span className="scoreValue">{score}</span>
-          </h5>
-          <div>
-            <img className="coinImage" src={coin} alt="" />
-          </div>
+    
+
+      </div>
+      
+      <div className="scoreContainer">
+        <h5>Your Score <span className="scoreValue">{score}</span></h5>
+        <div>
+          <img className="coinImage" src={coin} alt="" />
         </div>
       </div>
+    </div>
       <button
         style={{ display: "none" }}
         onClick={() => handleGameEnd(true)}

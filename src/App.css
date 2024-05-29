@@ -32,15 +32,7 @@ html, body, #root {
   grid-template-rows: auto 1fr auto; /* Header, Content, Footer */
 }
 
-.gameCont, .gamContent {
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  padding-top: 100px;
-  /* min-height: 100vh;    */
 
- 
-}
 
 .block {
   display: flex;
@@ -248,9 +240,9 @@ html, body, #root {
     margin-top: 10px;
 
   }
-  .gamContent {
+  /* .gamContent {
     height: 500px;
-  }
+  } */
   
   .betalContainer h4 {
     font-size: 16px;
@@ -272,14 +264,7 @@ html, body, #root {
     font-size: 16px;
   }
 
-  .betalContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 290px;
-    margin-top: 20px;
-    margin-right: 10px;
-  }
+
   #start-game{
     margin-bottom: 15px;
   }
@@ -288,17 +273,12 @@ html, body, #root {
     font-size: 12px;
     margin-right: 5px;
   }
-  .buttonBN {
-    margin-bottom: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .titleZok {
-    margin-bottom: 20px;
-    text-align: center;
+  .buttonBox {
+    margin-bottom: 170px;
   
+    
   }
+ 
   .titleZok h4 {
     color: #ffc402;
     font-size: 18px;
@@ -307,6 +287,23 @@ html, body, #root {
     color: white;
     font-size: 14px;
     
+  }
+  .titleZok {
+    text-align: center;
+    margin-top: 6rem;
+    margin-bottom: 20px;
+  
+  }
+  .betalContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+ 
+  .boxImageee {
+    display: flex;
+    justify-content: center;
   }
 }
 @media (min-width: 375px) and (max-width: 413px) {
@@ -321,11 +318,7 @@ html, body, #root {
   .title  {
     margin-top: 30px;
   }
-  /* canvas {
-    width: 352px;
-    height: 280px;
- 
-  } */
+
   .myCanvas {
     display: flex;
     flex-wrap: wrap;
@@ -333,9 +326,7 @@ html, body, #root {
     margin-top: 10px;
 
   }
-  .gamContent {
-    /* height: 500px; */
-  }
+
   
   .betalContainer h4 {
     font-size: 16px;
@@ -357,14 +348,6 @@ html, body, #root {
     font-size: 16px;
   }
 
-  .betalContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* width: 290px; */
-    margin-top: 20px;
-    margin-right: 20px;
-  }
   #start-game{
     margin-bottom: 15px;
   }
@@ -373,12 +356,13 @@ html, body, #root {
     font-size: 12px;
     margin-right: 5px;
   }
-  .buttonBN {
-    margin-bottom: 120px;
+  .buttonBox {
+    margin-bottom: 170px;
   }
   .titleZok {
     margin-bottom: 20px;
     text-align: center;
+    margin-top: 6rem;
   
   }
   .titleZok h4 {
@@ -389,6 +373,20 @@ html, body, #root {
     color: white;
     font-size: 16px;
     
+  }
+
+  .betalContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .countButton {
+    padding-right: 30px;
+  }
+  .boxImageee {
+    display: flex;
+    justify-content: center;
   }
 }
 @media (min-width: 414px) and (max-width: 576px) {
@@ -442,6 +440,9 @@ html, body, #root {
   }
 
   .betalContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
   }
   #start-game{
@@ -451,24 +452,31 @@ html, body, #root {
     margin-bottom: 45px;
     font-size: 14px;
   }
-  .buttonBN {
-    margin-bottom: 140px;
+  .buttonBox {
+    margin-bottom: 170px;
   }
   .titleZok {
     margin-bottom: 10px;
     text-align: center;
-    /* margin-top: 90px; */
+    margin-top: 6rem;
+  
   
   }
   .titleZok h4 {
     color: #ffc402;
     font-size: 24px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
   }
   .titleZok h5 {
     color: white;
     font-size: 16px;
     
+  }
+
+
+  .boxImageee {
+    display: flex;
+    justify-content: center;
   }
 
 }
@@ -533,7 +541,7 @@ html, body, #root {
     margin-left: 8px;
     
   }
-  .buttonBN {
+  .buttonBox {
     margin-bottom: 30px;
   }
 
@@ -544,22 +552,26 @@ html, body, #root {
   /* canvas {
     width: 590px;
   } */
+
+
   
- 
-.betalContainer {
- 
-  /* width: 150px; */
- 
-}
   .betalContainer h4 {
     font-size: 24px;
  
   }
   .titleZok {
-    margin-bottom: 40px;
     text-align: center;
+    margin-top: 8rem;
+    margin-bottom: 20px;
   
   }
+  .timeBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
   .titleZok h4 {
     color: #ffc402;
     font-size: 32px;
@@ -592,14 +604,14 @@ html, body, #root {
     margin-top: 30px;
   }
 
-  .groupCont {
-    width: 150px;
-    height: 50px;
-    margin-left: 8px;
-    
+
+  .buttonBox {
+    margin-bottom: 50px;
   }
-  .buttonBN {
-    margin-bottom: 30px;
+  .betalContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 }
@@ -615,9 +627,9 @@ html, body, #root {
   #canvas {
     margin-right: 0;
   }
-  .betalContainer {
-    /* width: 250px; */
-  }
+  /* .betalContainer {
+    width: 250px;
+  } */
   .betalContainer h4 {
     font-size: 18px;
   }
@@ -640,12 +652,14 @@ html, body, #root {
     padding: 12px;
    
   }
-  .buttonBN {
-    margin-bottom: 50px;
+  .buttonBox {
+    margin-bottom: 70px;
   }
   .titleZok {
    
     text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 20px;
   
   }
   .titleZok h4 {
@@ -655,8 +669,27 @@ html, body, #root {
   .titleZok h5 {
     color: white;
   }
+  .boxImageee {
+    display: flex;
+    justify-content: center;
+  }
+  .betalContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap:  wrap;
+    margin-top: 30px ;
+  }
+  .countButton h5 {
+    font-size: 18px;
+  }
  
   
+}
+@media (min-width: 1200px) and (max-width: 1300px) {
+  .countButton {
+    padding-left: 0;
+  }
 }
 @media (min-width: 1440px) {
   /* canvas {
@@ -665,12 +698,15 @@ html, body, #root {
   /* .betalContainer {
     width: 300px;
   } */
-  .buttonBN {
+  .buttonBox {
     margin-bottom: 50px;
+  
+   
   }
   .titleZok {
     margin-bottom: 30px;
     text-align: center;
+    padding-top: 6rem;
   
   }
   .titleZok h4 {
@@ -687,29 +723,34 @@ html, body, #root {
     padding: 12px;
    
   }
+  .timerBox {
+    padding-left: 30px;
+  }
 
 }
 
 
 
 
-@media (min-width: 991px) and (max-width: 1200px) {
+/* @media (min-width: 991px) and (max-width: 1200px) {
 .gamContent {
   padding-top: 195px;
 }
-}
-@media (min-width: 768px) and (max-width: 991px) {
+} */
+/* @media (min-width: 768px) and (max-width: 991px) {
   .gamContent {
     padding-top: 195px;
   }
-  }
-  @media (min-width: 425px) and (max-width: 768px) {
+  } */
+  /* @media (min-width: 425px) and (max-width: 768px) {
     .gamContent {
       padding-top: 200px;
     }
-    }
-    @media (min-width: 320px) and (max-width: 425px) {
+  
+ 
+    } */
+    /* @media (min-width: 320px) and (max-width: 425px) {
       .gamContent {
         padding-top: 230px;
       }
-      }
+      } */

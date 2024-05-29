@@ -82,9 +82,11 @@ export const GameComponent = ({ currentLevel }) => {
     { x: 414, y: 442 },
     { x: 555, y: 353 },
     { x: 822, y: 323 },
-    // { x: 469, y: 113 },
+ 
     { x: 68, y: 443 },
   ];
+
+  
 
   //// Update canvas size on window resize
   // useEffect(() => {
@@ -241,7 +243,7 @@ export const GameComponent = ({ currentLevel }) => {
     }));
 
     console.log("Clicked Position:", { clickedX, clickedY });
-    console.log("Scaled Positions:", scaledPositions);
+    // console.log("Scaled Positions:", scaledPositions);
 
     // Check if the position was already clicked
     const positionAlreadyClicked = clickedPositions.some(
@@ -255,7 +257,7 @@ export const GameComponent = ({ currentLevel }) => {
     for (const position of scaledPositions) {
       if (Math.abs(clickedX - position.x) < tolerance && Math.abs(clickedY - position.y) < tolerance) {
         ctx.beginPath();
-        ctx.arc(position.x, position.y, 22, 0, Math.PI * 2);
+        ctx.arc(position.x, position.y, 26, 0, Math.PI * 2);
         ctx.strokeStyle = "red";
         ctx.lineWidth = 3;
         ctx.stroke();
@@ -275,7 +277,7 @@ export const GameComponent = ({ currentLevel }) => {
           clearInterval(intervalRef.current);
           setTimeLeft(0);
           const startButton = document.getElementById("start-game");
-          startButton.innerHTML = "00m:00s";
+          startButton.innerHTML = "Start";
           setShowWinModal(true);
           // localStorage.setItem("score", totalScore);
           setGameStarted(false);
@@ -332,9 +334,9 @@ export const GameComponent = ({ currentLevel }) => {
 
 
   return (
-    <div className="box ">
+    <div className="box overflow-auto ">
       <PreLoader />
-      <div className="container-fluid overflow-auto flex items-center justify-center">
+      <div className="container-fluid  flex items-center justify-center">
         <div className="sideHome">
           <img className="w-100 mx-2" src={firstLogo} alt="" />
           <img className="w-100" src={secondLogo} alt="" />
@@ -352,7 +354,7 @@ export const GameComponent = ({ currentLevel }) => {
           </div>
 
           <div className="row justify-center items-center">
-            <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9" >
+            <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9 boxImageee" >
               <img id="scream" src={can} alt="" style={{ display: "none" }} />
               <audio id="fileSound" src={audioFile} style={{ display: "none" }}></audio>
               <audio id="wrongSound" src={wrongClick} style={{ display: "none" }}></audio>
@@ -364,14 +366,17 @@ export const GameComponent = ({ currentLevel }) => {
                 onClick={handleCanvasClick}
               ></canvas>
             </div>
-            <div className="col-12 col-lg-2 col-xl-3">
+            <div className="col-12 col-lg-7 col-xl-3">
+                 <div className="timeBox">
+                 <div className="betalContainer">
               <div className="countButton" id="counter-button">
                 <h5>Maximum of <span className="number">   {correctSelections}</span> Boxes </h5>
                 <div className="logoDescr">
                   <img  src={logo} alt="Description" />
                 </div>
-                <div className="betalContainer">
-                  <div>
+
+                </div>
+                <div className="timerBox">
                     <button
                       id="start-game"
                       className="timer-button"
@@ -384,15 +389,18 @@ export const GameComponent = ({ currentLevel }) => {
                     </button>
                     <h6 className="italic mt-2 clickText">Click here to start the Game</h6>
                   </div>
-                </div>
+                 </div>
+                
+
               </div>
+
               
             </div>
             
           </div>
 
-          <div className="row justify-center items-center">
-            <div className="col-6">
+         <div className="row justify-center items-center buttonBox">
+            <div className="col-12 col-lg-3">
               <div className="buttonBN">
                 <div className="text-center">
                   <Link to="/ChoosePage">
@@ -404,7 +412,7 @@ export const GameComponent = ({ currentLevel }) => {
              
               </div>
             </div>
-            <div className="col-6">  
+            <div className="col-12 col-lg-3">  
              <div className="text-center buttonBN">
                   <Link to="/Level2Component">
                     {selectedBoxes >= 6 && (
@@ -414,6 +422,8 @@ export const GameComponent = ({ currentLevel }) => {
                 </div>
                 </div>
           </div>
+
+      
 
         </div>
         

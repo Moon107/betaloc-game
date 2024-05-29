@@ -46,7 +46,7 @@ export function Home() {
              
            
                     <div className="homeContent">
-                        <h1>Where’s Betaloc ZOK?</h1>
+                        <h1>Where is Betaloc ZOK?</h1>
                        
                        
                         

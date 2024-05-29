@@ -40,7 +40,7 @@ export function ChoosePage() {
   
     return <>
       <div className="box ">
-        <div className="container w-screen h-screen flex-grow overflow-auto">
+        <div className="container-fluid w-screen h-screen flex-grow overflow-auto">
             <div className="row">
                    <div className="parent-container">
                    <div className="col-md-12 chooseContainer">
