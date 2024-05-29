@@ -1,7 +1,6 @@
 {
   "name": "project",
   "version": "0.1.0",
-  "homepage": "https://orevan.net/test_game",
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -15,6 +14,7 @@
     "json-server": "^1.0.0-beta.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-helmet": "^6.1.0",
     "react-icons": "^5.2.0",
     "react-modal": "^3.16.1",
     "react-responsive-canvas": "^1.0.2",

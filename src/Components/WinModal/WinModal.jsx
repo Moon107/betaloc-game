@@ -57,7 +57,7 @@ export const WinModal = ({ show, onClose, restartGame, currentLevel   }) => {
             </div>
             
            
-         <div className='d-flex align-items-center justify-content-center'>
+         <div className=''>
          <button onClick={restartGame} className=' playButton'>Play Again</button>
             {currentLevel === 3 && (
               <div>
