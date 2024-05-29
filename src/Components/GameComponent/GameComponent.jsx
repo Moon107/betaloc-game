@@ -40,6 +40,7 @@ export const GameComponent = ({ currentLevel }) => {
   const [selectedBoxes, setSelectedBoxes] = useState(0);
   const [clickedPositions, setClickedPositions] = useState([]);
   const [childQuestions, setChildQuetions] = useState([]);
+  const [clickCounter, setClickCounter] = useState(0);
 
   const { score, setScore, addScore, totalScore } = useContext(ScoreContext);
   const { completeLevel } = useContext(LevelContext);
@@ -191,8 +192,9 @@ export const GameComponent = ({ currentLevel }) => {
         startButton.innerHTML = "Start";
         setGameStarted(false);
         setCompleteCountDown(true);
-
-        if (childQuestions.length == 1) {
+         console.log(childQuestions.length);
+        if (childQuestions.length == 2) {
+          console.log(childQuestions.length);
           setShowLoseModal(true);
         }
 
@@ -200,6 +202,9 @@ export const GameComponent = ({ currentLevel }) => {
           setShowModal(true); // Show modal when countdown is finished and there are remaining items
 
         }
+        // if(showDoneModal === false) {
+        //   startCountdown(30);
+        // }
       }
     }, 1000);
 
@@ -304,6 +309,22 @@ export const GameComponent = ({ currentLevel }) => {
     }
 
   };
+  const handleClickCounter = () => {
+
+ 
+      setClickCounter((prevCounter) => {
+        const newCounter = prevCounter + 1;
+        return newCounter;
+      });
+    
+    if(clickCounter >= 1 ) {
+      startCountdown(30)
+    } else {
+      startCountdown(60)
+    }
+    console.log("clickCounter");
+
+  }
 
 
   const restartGame = () => {
@@ -381,9 +402,7 @@ export const GameComponent = ({ currentLevel }) => {
                       id="start-game"
                       className="timer-button"
                       disabled={gameStarted}
-                      onClick={() => {
-                        startCountdown(60);
-                      }}
+                      onClick={handleClickCounter}
                     >
                       Start {timeLeft}s
                     </button>
@@ -416,7 +435,7 @@ export const GameComponent = ({ currentLevel }) => {
              <div className="text-center buttonBN">
                   <Link to="/Level2Component">
                     {selectedBoxes >= 6 && (
-                      <button id="next-level-button" className=" nextButtonGame" onClick={handleWin}>To Next Theme</button>
+                      <button id="next-level-button" className=" nextButtonGame" onClick={handleWin}>To Next Level</button>
                     )}
                   </Link>
                 </div>

@@ -73,7 +73,7 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
     return null;
   }
   const handleContinue = () => {
-    increaseTimer();
+    // increaseTimer();
     const currentQuestion = displayData[currentQuestionIndex];
     getFromChild(currentQuestion.id)
     setShowDoneModal(false);

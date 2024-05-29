@@ -72,7 +72,7 @@ export const WinModal = ({ show, onClose, restartGame, currentLevel   }) => {
                  <Link to="/ChoosePage">
                <button className='playButton'>Return Home </button>
              </Link>
-              <button onClick={handleNextLevel} className="nextButton">To Next Theme</button>
+              <button onClick={handleNextLevel} className="nextButton">To Next Level</button>
               </div>
             )} 
          </div>

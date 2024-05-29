@@ -81,10 +81,11 @@ const MyModal = ({ show, onClose, remainingItems, increaseTimer , restartGame, g
     return null;
   }
   const handleContinue = () => {
-    increaseTimer();
+    // increaseTimer();
     const currentQuestion = displayData[currentQuestionIndex];
     getFromChild(currentQuestion.id);
     setShowDoneModal(false);
+
     onClose();
   };
   const handleWrongContinue = () => {

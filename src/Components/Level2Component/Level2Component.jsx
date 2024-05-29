@@ -41,6 +41,7 @@ export const Level2Component = ({ currentLevel }) => {
   const [selectedBoxes, setSelectedBoxes] = useState(0);
   const [clickedPositions, setClickedPositions] = useState([]);
   const [childQuestions, setChildQuetions] = useState([]);
+  const [clickCounter, setClickCounter] = useState(0);
 
   const { score, setScore, addScore, totalScore } = useContext(ScoreContext);
   const { completeLevel } = useContext(LevelContext);
@@ -194,7 +195,7 @@ export const Level2Component = ({ currentLevel }) => {
         setGameStarted(false);
         setCompleteCountDown(true);
 
-        if (childQuestions.length == 1) {
+        if (childQuestions.length == 3) {
           setShowLoseModal(true);
         }
 
@@ -302,6 +303,23 @@ export const Level2Component = ({ currentLevel }) => {
     }
   };
 
+  const handleClickCounter = () => {
+
+ 
+    setClickCounter((prevCounter) => {
+      const newCounter = prevCounter + 1;
+      return newCounter;
+    });
+  
+  if(clickCounter >= 1 ) {
+    startCountdown(30)
+  } else {
+    startCountdown(60)
+  }
+  console.log("clickCounter");
+
+}
+
   const restartGame = () => {
     clearInterval(intervalRef.current);
     setRemainingItems("");
@@ -375,9 +393,7 @@ export const Level2Component = ({ currentLevel }) => {
                     id="start-game"
                     className="timer-button"
                     disabled={gameStarted}
-                    onClick={() => {
-                      startCountdown(60);
-                    }}
+                    onClick={handleClickCounter}
                   >
                     Start {timeLeft}s
                   </button>
@@ -410,7 +426,7 @@ export const Level2Component = ({ currentLevel }) => {
            <div className="text-center buttonBN">
                 <Link to="/Level3Component">
                   {selectedBoxes >= 6 && (
-                    <button id="next-level-button" className=" nextButtonGame" onClick={handleWin}>To Next Theme</button>
+                    <button id="next-level-button" className=" nextButtonGame" onClick={handleWin}>To Next Level</button>
                   )}
                 </Link>
               </div>
