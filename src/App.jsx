@@ -20,7 +20,6 @@ import { Level2Component } from "./Components/Level2Component/Level2Component.js
 import { Level3Component } from "./Components/Level3Component/Level3Component.jsx";
 import MyModal2 from "./Components/MyModal2/MyModal2.jsx";
 // import { Level4Component } from "./Components/Level4Component/Level4Component.jsx";
-import { Helmet } from 'react-helmet';
 
 
 
@@ -32,7 +31,7 @@ function App() {
       <LevelProvider>
         <ScoreProvider>
           <UserNameProvider>
-            <BrowserRouter>
+            <BrowserRouter basename="/test_game">
 
               <Routes>
                 <Route index element={<Home />} />
