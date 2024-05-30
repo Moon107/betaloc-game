@@ -1,18 +1,67 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../PreLoader/PreLoader.css";
-import { preLoaderAnim } from '../../animations';
+import gsap from "gsap";
+import { GameComponent } from '../GameComponent/GameComponent';
 
-export function PreLoader() {
+const tl = gsap.timeline();
+
+export function PreLoader({handleAnimationComplete}) {
+    const [animationComplete, setAnimationComplete] = useState(false);
+  
     useEffect(() => {
-        preLoaderAnim()
-
-    }, [])
-    return <>
-    <div className="preLoader">
+      const preLoaderAnim = () => {
+        tl.to("body", {
+          duration: 0.1,
+          css: { overflowY: "hidden" },
+          ease: "power3.inOut",
+        })
+          .to(".landing", {
+            duration: 0.05,
+            css: { overflowY: "hidden", height: "90vh" },
+          })
+          .to(".texts-container", {
+            duration: 0,
+            opacity: 1,
+            ease: "power3.inOut",
+          })
+          .from(".texts-container span", {
+            duration: 1.5,
+            delay: 1,
+            y: 70,
+            skewY: 10,
+            stagger: 0.4,
+            ease: "power3.inOut",
+          })
+          .to(".texts-container span", {
+            duration: 1,
+            y: 70,
+            skewY: 10,
+            stagger: 0.4,
+            ease: "power3.inOut",
+          })
+          .to(".preLoader", {
+            duration: 1.5,
+            height: "0vh",
+            ease: "power3.inOut",
+            onComplete: () => setAnimationComplete(true), // Set the state when animation completes
+          });
+      };
+      preLoaderAnim();
+    }, []);
+  
+    useEffect(() => {
+      if (animationComplete) {
+        handleAnimationComplete(true)
+      
+        
+      }
+    }, [animationComplete]);
+  
+    return (
+      <div className="preLoader">
         <div className="texts-container">
-            <span>Starting the Game.....</span>
-            
+          <span>Starting the Game.....</span>
         </div>
-    </div>
-    </>
-}
+      </div>
+    );
+  }

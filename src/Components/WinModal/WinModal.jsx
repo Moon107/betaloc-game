@@ -7,7 +7,7 @@ import coin from "../../images/coin.svg";
 import "../WinModal/WinModal.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { LevelContext } from '../../Context/LevelContext';
-import backgroundVideo from "../../videos/golden-particles.mov";
+// import backgroundVideo from "../../videos/golden-particles.mov";
 
 export const WinModal = ({ show, onClose, restartGame, currentLevel   }) => {
 
@@ -31,11 +31,11 @@ export const WinModal = ({ show, onClose, restartGame, currentLevel   }) => {
     return <>
         <Modal className="winModalBox" isOpen={show} onRequestClose={onClose}>
       <div className='winModalCotainer'>
-      <video className='backgroundVideo' autoPlay loop muted>
+      {/* <video className='backgroundVideo' autoPlay loop muted>
             <source src={backgroundVideo} />
-          </video>
+          </video> */}
         <div className="winContent">
-            <h1>Congratulations! </h1>
+            <h1 className='mb-3'>Congratulations! </h1>
             <h3 className='placed' >You placed all circles correctly.</h3>
             <div className="contentScore">
               <div className='mr-5'>

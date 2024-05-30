@@ -12,7 +12,7 @@
 }
 .winModalBox {
     height: 100vh;
-    background-color: rgba(0,0,0,0.9) !important;
+    background-color: rgba(0,0,0,0.7) !important;
     display: flex;
     justify-content: center;
     align-items: center;
