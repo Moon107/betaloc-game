@@ -73,7 +73,7 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
     return null;
   }
   const handleContinue = () => {
-    // increaseTimer();
+    increaseTimer();
     const currentQuestion = displayData[currentQuestionIndex];
     getFromChild(currentQuestion.id)
     setShowDoneModal(false);
@@ -104,7 +104,7 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
       <div className='modalCotainer'>
         <div className="content">
           <h4>Time's Up!</h4>
-          <h4>Answer this question to get extra 30 seconds!</h4>
+          <h4>Answer this question to get extra 15 seconds!</h4>
           <div className='question'>
             <h5>{currentQuestion.question}</h5>
           </div>
@@ -133,7 +133,7 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
               </ol>
             </form>
             <div>
-              <button className='plusButton'>+30</button>
+              <button className='plusButton'>+15</button>
             </div>
           </div>
           {remainingItems > 0 && <p>Remaining Items: {remainingItems}</p>}

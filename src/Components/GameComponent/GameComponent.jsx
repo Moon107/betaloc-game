@@ -3,7 +3,7 @@ import firstLogo from "../../images/Group18.png";
 import secondLogo from "../../images/VectorSmartObject.png";
 import logo from "../../images/Frame55.png";
 import can from "../../images/FirstThemeHigh.jpg";
-import audioFile from '../../audios/collect-points.mp3';
+import audioFile from "../../audios/collect-points.mp3";
 import { Link, useNavigate } from "react-router-dom";
 import { PreLoader } from "../PreLoader/PreLoader";
 import MyModal from "../MyModal/MyModal";
@@ -16,6 +16,9 @@ import { LevelContext } from "../../Context/LevelContext";
 import { LoseModal } from "../LoseModal/LoseModal";
 import UserNameContext from "../../Context/UserNameContext";
 import wrongClick from "../../audios/Losing.wav";
+import presentation from "../../audios/presentation.wav";
+
+
 
 const getDynamicFactor = (windowWidth) => {
   if (windowWidth <= 500) return 0.06;
@@ -34,9 +37,9 @@ export const GameComponent = ({ currentLevel }) => {
   const [gameStarted, setGameStarted] = useState(false);
   const [clicks, setClicks] = useState(0);
   const [correctSelections, setCorrectSelections] = useState(10);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(30);
   const [showLoseModal, setShowLoseModal] = useState(false);
-  // const [clickedObjects, setClickedObjects] = useState([]); 
+  // const [clickedObjects, setClickedObjects] = useState([]);
   const [selectedBoxes, setSelectedBoxes] = useState(0);
   const [clickedPositions, setClickedPositions] = useState([]);
   const [childQuestions, setChildQuetions] = useState([]);
@@ -50,7 +53,7 @@ export const GameComponent = ({ currentLevel }) => {
   const ctxRef = useRef(null);
   const intervalRef = useRef(null);
 
-  const initialCanvasWidth =  960;
+  const initialCanvasWidth = 960;
   const initialCanvasHeight = 540;
 
   // Set initial canvas size based on the window size
@@ -61,17 +64,50 @@ export const GameComponent = ({ currentLevel }) => {
   // });
   const calculateCanvasSize = () => {
     const dynamicFactor = getDynamicFactor(window.innerWidth);
-    const width = window.innerWidth > initialCanvasWidth
-      ? parseInt(initialCanvasWidth - (window.innerWidth * dynamicFactor))
-      : parseInt(window.innerWidth - (window.innerWidth * dynamicFactor));
-    const height = window.innerHeight > initialCanvasHeight
-      ? initialCanvasHeight
-      : window.innerHeight * (initialCanvasHeight / initialCanvasWidth);
+    const width =
+      window.innerWidth > initialCanvasWidth
+        ? parseInt(initialCanvasWidth - window.innerWidth * dynamicFactor)
+        : parseInt(window.innerWidth - window.innerWidth * dynamicFactor);
+    const height =
+      window.innerHeight > initialCanvasHeight
+        ? initialCanvasHeight
+        : window.innerHeight * (initialCanvasHeight / initialCanvasWidth);
 
     return { width, height };
-  };  
+  };
 
   const [canvasSize, setCanvasSize] = useState(calculateCanvasSize);
+
+
+
+
+  const handleAnimationComplete = (isComplete) => {
+    if(isComplete) {
+      startCountdown(30);
+      const presentation = document.getElementById("presentation");
+      presentation.play();
+    }
+
+  }
+
+
+
+  // const handleClickCounter = () => {
+  //   console.log("test");
+  //   // const presentation = document.getElementById("presentation");
+  //   // presentation.play();
+  //   setClickCounter((prevCounter) => {
+  //     const newCounter = prevCounter + 1;
+  //     return newCounter;
+  //   });
+
+  //   if (clickCounter >= 1) {
+  //     startCountdown(15);
+  //   } else {
+  //     startCountdown(30);
+  //   }
+  // };
+
 
   const circlePositions = [
     { x: 100, y: 200 },
@@ -83,22 +119,25 @@ export const GameComponent = ({ currentLevel }) => {
     { x: 414, y: 442 },
     { x: 555, y: 353 },
     { x: 822, y: 323 },
- 
+
     { x: 68, y: 443 },
   ];
 
-  
+  // const circlePositions = [
+  //   { x: 850, y: 458 },
+  //   { x: 102, y: 206 },
+  //   { x: 586, y: 454 },
+  //   { x: 69, y: 441 },
+  //   { x: 206, y: 493 },
+  //   { x: 935, y: 457 },
+  //   { x: 701, y: 215 },
+  //   { x: 562, y: 343 },
+  //   { x: 419, y: 433 },
+  //   { x: 475, y: 104 },
+  //   { x: 209, y: 391 },
+  //   { x: 822, y: 314 },
 
-  //// Update canvas size on window resize
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setCanvasSize(calculateCanvasSize());
-  //   };
-
-  //   window.addEventListener('resize', handleResize);
-  //   return () => window.removeEventListener('resize', handleResize);
-  // }, []);
-
+  // ];
 
 
   useEffect(() => {
@@ -113,12 +152,14 @@ export const GameComponent = ({ currentLevel }) => {
     image.onerror = (error) => {
       console.error("Failed to load image", error);
     };
+  
 
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
-    }
+    };
+  
   }, []);
 
   // Adjust canvas size when `canvasSize` state changes
@@ -141,8 +182,8 @@ export const GameComponent = ({ currentLevel }) => {
   }
 
   const increaseTimer = () => {
-    setTimeLeft(30); // Increase timer by 10 seconds
-    startCountdown(30);
+    setTimeLeft(15); // Increase timer by 10 seconds
+    startCountdown(15);
   };
 
   const handleWin = () => {
@@ -155,24 +196,29 @@ export const GameComponent = ({ currentLevel }) => {
     setShowLoseModal(true);
   };
 
-
   const handleGameEnd = (didWin) => {
     if (didWin) {
-
       handleWin();
     } else {
       handleLose();
     }
   };
 
+
   const startCountdown = (time) => {
+    console.log("test timer");
     const startButton = document.getElementById("start-game");
+
     const countdownDate = Date.now() + time * 1000;
     setGameStarted(true);
     startButton.innerHTML = `
-      <div class="countdown" id="countdown">
-          <span id="minutes">${Math.floor(time / 60).toString().padStart(2, "0")}</span> <span>m</span> :
-          <span id="seconds">${(time % 60).toString().padStart(2, "0")}</span> <span>s</span>
+      <div className="countdown" id="countdown">
+          <span id="minutes">${Math.floor(time / 60)
+            .toString()
+            .padStart(2, "0")}</span> <span>m</span> :
+          <span id="seconds">${(time % 60)
+            .toString()
+            .padStart(2, "0")}</span> <span>s</span>
       </div>
     `;
     intervalRef.current = setInterval(() => {
@@ -182,8 +228,12 @@ export const GameComponent = ({ currentLevel }) => {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Update the seconds display
-      document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
-      document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
+      document.getElementById("minutes").textContent = minutes
+        .toString()
+        .padStart(2, "0");
+      document.getElementById("seconds").textContent = seconds
+        .toString()
+        .padStart(2, "0");
 
       // Check if the countdown is complete
       if (distance <= 0) {
@@ -192,7 +242,7 @@ export const GameComponent = ({ currentLevel }) => {
         startButton.innerHTML = "Start";
         setGameStarted(false);
         setCompleteCountDown(true);
-         console.log(childQuestions.length);
+        console.log(childQuestions.length);
         if (childQuestions.length == 2) {
           console.log(childQuestions.length);
           setShowLoseModal(true);
@@ -200,29 +250,11 @@ export const GameComponent = ({ currentLevel }) => {
 
         if (correctSelections > 0) {
           setShowModal(true); // Show modal when countdown is finished and there are remaining items
-
         }
-        // if(showDoneModal === false) {
-        //   startCountdown(30);
-        // }
+     
       }
     }, 1000);
-
-
   };
-
-
-
-  // const handleBoxes = (event) => {
-
-  //     setSelectedBoxes((prev) => prev + 1); // Update selected boxes
-  //     handleWin();
-
-
-  //   }
-
-
-
 
   const handleCanvasClick = (event) => {
     if (!gameStarted || clicks >= 10) {
@@ -233,6 +265,7 @@ export const GameComponent = ({ currentLevel }) => {
     const clickedY = event.nativeEvent.offsetY;
     const aud = document.getElementById("fileSound");
     const wrong = document.getElementById("wrongSound");
+
     let clickedCorrectly = false;
     const ctx = ctxRef.current;
     const tolerance = 20; // Adjust tolerance as needed
@@ -242,7 +275,7 @@ export const GameComponent = ({ currentLevel }) => {
     const scaleY = canvasSize.height / initialCanvasHeight;
 
     // Scale positions based on current canvas size
-    const scaledPositions = circlePositions.map(position => ({
+    const scaledPositions = circlePositions.map((position) => ({
       x: position.x * scaleX,
       y: position.y * scaleY,
     }));
@@ -252,7 +285,9 @@ export const GameComponent = ({ currentLevel }) => {
 
     // Check if the position was already clicked
     const positionAlreadyClicked = clickedPositions.some(
-      pos => Math.abs(pos.x - clickedX) < tolerance && Math.abs(pos.y - clickedY) < tolerance
+      (pos) =>
+        Math.abs(pos.x - clickedX) < tolerance &&
+        Math.abs(pos.y - clickedY) < tolerance
     );
 
     if (positionAlreadyClicked) {
@@ -260,15 +295,18 @@ export const GameComponent = ({ currentLevel }) => {
     }
 
     for (const position of scaledPositions) {
-      if (Math.abs(clickedX - position.x) < tolerance && Math.abs(clickedY - position.y) < tolerance) {
+      if (
+        Math.abs(clickedX - position.x) < tolerance &&
+        Math.abs(clickedY - position.y) < tolerance
+      ) {
         ctx.beginPath();
-        ctx.arc(position.x, position.y, 26, 0, Math.PI * 2);
+        ctx.arc(position.x, position.y, 28, 0, Math.PI * 2);
         ctx.strokeStyle = "red";
         ctx.lineWidth = 3;
         ctx.stroke();
 
         // Add the position to the list of clicked positions
-        setClickedPositions(prev => [...prev, { x: clickedX, y: clickedY }]);
+        setClickedPositions((prev) => [...prev, { x: clickedX, y: clickedY }]);
 
         setClicks((prevClicks) => prevClicks + 1);
         setCorrectSelections((prev) => prev - 1);
@@ -283,7 +321,9 @@ export const GameComponent = ({ currentLevel }) => {
           setTimeLeft(0);
           const startButton = document.getElementById("start-game");
           startButton.innerHTML = "Start";
-          setShowWinModal(true);
+          setTimeout(() => {
+            setShowWinModal(true);
+          }, 2000);
           // localStorage.setItem("score", totalScore);
           setGameStarted(false);
         }
@@ -307,25 +347,7 @@ export const GameComponent = ({ currentLevel }) => {
     if (!clickedCorrectly) {
       wrong.play();
     }
-
   };
-  const handleClickCounter = () => {
-
- 
-      setClickCounter((prevCounter) => {
-        const newCounter = prevCounter + 1;
-        return newCounter;
-      });
-    
-    if(clickCounter >= 1 ) {
-      startCountdown(30)
-    } else {
-      startCountdown(60)
-    }
-    console.log("clickCounter");
-
-  }
-
 
   const restartGame = () => {
     clearInterval(intervalRef.current);
@@ -345,7 +367,6 @@ export const GameComponent = ({ currentLevel }) => {
     setShowLoseModal(false);
     localStorage.setItem("score", 0);
 
-
     const ctx = ctxRef.current;
     const canvas = canvasRef.current;
     const image = document.getElementById("scream");
@@ -353,18 +374,23 @@ export const GameComponent = ({ currentLevel }) => {
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
   };
 
-
   return (
-    <div className="box overflow-auto ">
-      <PreLoader />
-      <div className="container-fluid  flex items-center justify-center">
+
+    
+    <div className="box overflow-auto">
+      <PreLoader handleAnimationComplete={handleAnimationComplete} />
+      <div className="container-fluid flex items-center justify-center">
+      <audio
+            loop
+            id="presentation"
+            src={presentation}
+            style={{ display: "none" }}
+          ></audio>
         <div className="sideHome">
           <img className="w-100 mx-2" src={firstLogo} alt="" />
           <img className="w-100" src={secondLogo} alt="" />
-
         </div>
         <div className="gamContent">
-
           <div className="row">
             <div className="col-md-12 block">
               <div className="titleZok">
@@ -373,12 +399,20 @@ export const GameComponent = ({ currentLevel }) => {
               </div>
             </div>
           </div>
-
           <div className="row justify-center items-center">
-            <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9 boxImageee" >
+            <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9 boxImageee">
               <img id="scream" src={can} alt="" style={{ display: "none" }} />
-              <audio id="fileSound" src={audioFile} style={{ display: "none" }}></audio>
-              <audio id="wrongSound" src={wrongClick} style={{ display: "none" }}></audio>
+              <audio
+                id="fileSound"
+                src={audioFile}
+                style={{ display: "none" }}
+              ></audio>
+              <audio
+                id="wrongSound"
+                src={wrongClick}
+                style={{ display: "none" }}
+              ></audio>
+              
               <canvas
                 ref={canvasRef}
                 id="canvas"
@@ -388,91 +422,125 @@ export const GameComponent = ({ currentLevel }) => {
               ></canvas>
             </div>
             <div className="col-12 col-lg-7 col-xl-3">
-                 <div className="timeBox">
-                 <div className="betalContainer">
-              <div className="countButton" id="counter-button">
-                <h5>Maximum of <span className="number">   {correctSelections}</span> Boxes </h5>
-                <div className="logoDescr">
-                  <img  src={logo} alt="Description" />
-                </div>
-
-                </div>
-                <div className="timerBox">
+              <div className="timeBox">
+                <div className="betalContainer">
+                  <div className="countButton" id="counter-button">
+                    <h5>
+                      Maximum of{" "}
+                      <span className="number">{correctSelections}</span> Boxes{" "}
+                    </h5>
+                    <div className="logoDescr">
+                      <img src={logo} alt="Description" />
+                    </div>
+                  </div>
+                  <div className="timerBox">
                     <button
                       id="start-game"
                       className="timer-button"
                       disabled={gameStarted}
-                      onClick={handleClickCounter}
+                      // onClick={handleClickCounter}
                     >
                       Start {timeLeft}s
                     </button>
-                    <h6 className="italic mt-2 clickText">Click here to start the Game</h6>
+                    <h6 className="italic mt-2 clickText">
+                      Click here to start the Game
+                    </h6>
+               
                   </div>
-                 </div>
-                
-
+                </div>
               </div>
-
-              
             </div>
-            
           </div>
-
-         <div className="row justify-center items-center buttonBox">
+          <div className="row justify-center items-center buttonBox">
             <div className="col-12 col-lg-3">
               <div className="buttonBN">
                 <div className="text-center">
                   <Link to="/ChoosePage">
-                    <button onClick={() => clearInterval(intervalRef.current)} className="btn btn-light backbutton ">
+                    <button
+                      onClick={() => clearInterval(intervalRef.current)}
+                      className="btn btn-light backbutton "
+                    >
                       Back
                     </button>
                   </Link>
                 </div>
-             
               </div>
             </div>
-            <div className="col-12 col-lg-3">  
-             <div className="text-center buttonBN">
-                  <Link to="/Level2Component">
-                    {selectedBoxes >= 6 && (
-                      <button id="next-level-button" className=" nextButtonGame" onClick={handleWin}>To Next Level</button>
-                    )}
-                  </Link>
-                </div>
-                </div>
+            <div className="col-12 col-lg-3">
+              <div className="text-center buttonBN">
+                <Link to="/Level2Component">
+                  {selectedBoxes >= 6 && (
+                    <button
+                      id="next-level-button"
+                      className=" nextButtonGame"
+                      onClick={handleWin}
+                    >
+                      To Next Level
+                    </button>
+                  )}
+                </Link>
+              </div>
+            </div>
           </div>
-
-      
-
-        </div>
-        
-        <div className="scoreContainer">
-          <h5>Your Score <span className="scoreValue">{score}</span></h5>
-          <div>
-            <img className="coinImage" src={coin} alt="" />
+          <div className="scoreContainer">
+            <h5>
+              Your Score <span className="scoreValue">{score}</span>
+            </h5>
+            <div>
+              <img className="coinImage" src={coin} alt="" />
+            </div>
           </div>
         </div>
+        <button
+          style={{ display: "none" }}
+          onClick={() => handleGameEnd(true)}
+        ></button>
+        <button
+          style={{ display: "none" }}
+          onClick={() => handleGameEnd(false)}
+        ></button>
+        {showModal && completeCountDown && correctSelections > 0 && (
+          <MyModal
+            getFromChild={getFromChild}
+            childQuestions={childQuestions}
+            show={showModal}
+            onClose={() => setShowModal(false)}
+            remainingItems={remainingItems}
+            increaseTimer={increaseTimer}
+            restartGame={restartGame}
+          >
+            <h2>Test Modal</h2>
+          </MyModal>
+        )}
+        {showDoneModal && (
+          <DoneModal
+            show={showDoneModal}
+            onClose={() => setShowDoneModal(false)}
+          />
+        )}
+        {showWrongModal && (
+          <WrongModal
+            show={showWrongModal}
+            onClose={() => setShowWrongModal(false)}
+          />
+        )}
+        {showWinModal && (
+          <WinModal
+            show={showWinModal}
+            onClose={() => setShowWinModal(false)}
+            restartGame={restartGame}
+            currentLevel={currentLevel}
+          />
+        )}
+        {showLoseModal && (
+          <LoseModal
+            show={showLoseModal}
+            onClose={() => setShowLoseModal(false)}
+          />
+        )}
       </div>
-      <button style={{ display: "none" }} onClick={() => handleGameEnd(true)}></button>
-      <button style={{ display: "none" }} onClick={() => handleGameEnd(false)}></button>
-      {showModal && completeCountDown && correctSelections > 0 && (
-        <MyModal getFromChild={getFromChild} childQuestions={childQuestions} show={showModal} onClose={() => setShowModal(false)} remainingItems={remainingItems} increaseTimer={increaseTimer} restartGame={restartGame}>
-          <h2>Test Modal</h2>
-        </MyModal>
-      )}
-      {showDoneModal && (
-        <DoneModal show={showDoneModal} onClose={() => setShowDoneModal(false)} />
-      )}
-      {showWrongModal && (
-        <WrongModal show={showWrongModal} onClose={() => setShowWrongModal(false)} />
-      )}
-      {showWinModal && (
-        <WinModal show={showWinModal} onClose={() => setShowWinModal(false)} restartGame={restartGame} currentLevel={currentLevel} />
-      )}
-      {showLoseModal && (
-        <LoseModal show={showLoseModal} onClose={() => setShowLoseModal(false)} />
-      )}
     </div>
+
   );
 };
 

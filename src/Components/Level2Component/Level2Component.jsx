@@ -17,6 +17,7 @@ import { LoseModal } from "../LoseModal/LoseModal";
 import UserNameContext from "../../Context/UserNameContext";
 import wrongClick from "../../audios/Losing.wav";
 import MyModal2 from "../MyModal2/MyModal2";
+import presentation from "../../audios/presentation.wav";
 
 const getDynamicFactor = (windowWidth) => {
   if (windowWidth <= 500) return 0.06;
@@ -35,7 +36,7 @@ export const Level2Component = ({ currentLevel }) => {
   const [gameStarted, setGameStarted] = useState(false);
   const [clicks, setClicks] = useState(0);
   const [correctSelections, setCorrectSelections] = useState(10);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(30);
   const [showLoseModal, setShowLoseModal] = useState(false);
   // const [clickedObjects, setClickedObjects] = useState([]);
   const [selectedBoxes, setSelectedBoxes] = useState(0);
@@ -97,6 +98,25 @@ export const Level2Component = ({ currentLevel }) => {
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
 
+ 
+//   const handleClickCounter = () => {
+
+//   console.log("test");
+//     setClickCounter((prevCounter) => {
+//       const newCounter = prevCounter + 1;
+//       return newCounter;
+//     });
+  
+//   if(clickCounter >= 1 ) {
+//     startCountdown(15)
+//   } else {
+//     startCountdown(30)
+//   }
+
+
+// }
+
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -109,12 +129,13 @@ export const Level2Component = ({ currentLevel }) => {
     image.onerror = (error) => {
       console.error("Failed to load image", error);
     };
-
+   
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
+ 
   }, []);
 
   // Adjust canvas size when `canvasSize` state changes
@@ -137,8 +158,8 @@ export const Level2Component = ({ currentLevel }) => {
   }
 
   const increaseTimer = () => {
-    setTimeLeft(30); // Increase timer by 10 seconds
-    startCountdown(30);
+    setTimeLeft(15); // Increase timer by 10 seconds
+    startCountdown(15);
   };
 
   const handleWin = () => {
@@ -206,12 +227,14 @@ export const Level2Component = ({ currentLevel }) => {
     }, 1000);
   };
 
-  // const handleBoxes = (event) => {
+  const handleAnimationComplete = (isComplete) => {
+    if(isComplete) {
+      startCountdown(30)
+      const presentation = document.getElementById("presentation");
+      presentation.play();
+    }
 
-  //     setSelectedBoxes((prev) => prev + 1); // Update selected boxes
-  //     handleWin();
-
-  //   }
+  }
 
   const handleCanvasClick = (event) => {
     if (!gameStarted || clicks >= 10) {
@@ -303,22 +326,7 @@ export const Level2Component = ({ currentLevel }) => {
     }
   };
 
-  const handleClickCounter = () => {
 
- 
-    setClickCounter((prevCounter) => {
-      const newCounter = prevCounter + 1;
-      return newCounter;
-    });
-  
-  if(clickCounter >= 1 ) {
-    startCountdown(30)
-  } else {
-    startCountdown(60)
-  }
-  console.log("clickCounter");
-
-}
 
   const restartGame = () => {
     clearInterval(intervalRef.current);
@@ -347,8 +355,14 @@ export const Level2Component = ({ currentLevel }) => {
 
   return (
     <div className="box overflow-auto ">
-    <PreLoader />
+     <PreLoader handleAnimationComplete={handleAnimationComplete} />
     <div className="container-fluid  flex items-center justify-center">
+    <audio
+            loop
+            id="presentation"
+            src={presentation}
+            style={{ display: "none" }}
+          ></audio>
       <div className="sideHome">
         <img className="w-100 mx-2" src={firstLogo} alt="" />
         <img className="w-100" src={secondLogo} alt="" />
@@ -393,7 +407,7 @@ export const Level2Component = ({ currentLevel }) => {
                     id="start-game"
                     className="timer-button"
                     disabled={gameStarted}
-                    onClick={handleClickCounter}
+                  
                   >
                     Start {timeLeft}s
                   </button>

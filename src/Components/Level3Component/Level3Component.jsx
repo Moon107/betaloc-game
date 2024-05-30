@@ -16,6 +16,7 @@ import { LevelContext } from "../../Context/LevelContext";
 import { LoseModal } from "../LoseModal/LoseModal";
 import UserNameContext from "../../Context/UserNameContext";
 import wrongClick from "../../audios/Losing.wav";
+import presentation from "../../audios/presentation.wav";
 
 const getDynamicFactor = (windowWidth) => {
   if (windowWidth <= 500) return 0.06;
@@ -34,12 +35,13 @@ export const Level3Component = ({ currentLevel }) => {
   const [gameStarted, setGameStarted] = useState(false);
   const [clicks, setClicks] = useState(0);
   const [correctSelections, setCorrectSelections] = useState(10);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(30);
   const [showLoseModal, setShowLoseModal] = useState(false);
   // const [clickedObjects, setClickedObjects] = useState([]);
   const [selectedBoxes, setSelectedBoxes] = useState(0);
   const [clickedPositions, setClickedPositions] = useState([]);
   const [childQuestions, setChildQuetions] = useState([]);
+  const [clickCounter, setClickCounter] = useState(0);
 
   const { score, setScore, addScore, totalScore } = useContext(ScoreContext);
   const { completeLevel } = useContext(LevelContext);
@@ -131,14 +133,23 @@ export const Level3Component = ({ currentLevel }) => {
     if (storedScore) setScore(parseInt(storedScore, 10));
   }, [setUserName, setScore]);
 
-  function getFromChild(question) {
-    setChildQuetions([...childQuestions, question]);
-  }
 
-  const increaseTimer = () => {
-    setTimeLeft(30); // Increase timer by 10 seconds
-    startCountdown(30);
-  };
+
+  // const increaseTimer = () => {
+  //   setTimeLeft(30); // Increase timer by 10 seconds
+  //   startCountdown(30);
+  // };
+
+  // const handleClickCounter = () => {
+  //   console.log("test");
+  //   setClickCounter((prevCounter) => {
+  //     const newCounter = prevCounter + 1;
+  //     return newCounter;
+  //   });
+
+  //   startCountdown(30);
+  // };
+
 
   const handleWin = () => {
     // localStorage.setItem('level', currentLevel + 1);
@@ -201,12 +212,14 @@ export const Level3Component = ({ currentLevel }) => {
     }, 1000);
   };
 
-  // const handleBoxes = (event) => {
+  const handleAnimationComplete = (isComplete) => {
+    if(isComplete) {
+      startCountdown(30);
+      const presentation = document.getElementById("presentation");
+      presentation.play();
+    }
 
-  //     setSelectedBoxes((prev) => prev + 1); // Update selected boxes
-  //     handleWin();
-
-  //   }
+  }
 
   const handleCanvasClick = (event) => {
     if (!gameStarted || clicks >= 10) {
@@ -316,8 +329,14 @@ export const Level3Component = ({ currentLevel }) => {
 
   return (
     <div className="box overflow-auto ">
-      <PreLoader />
+       <PreLoader handleAnimationComplete={handleAnimationComplete} />
       <div className="container-fluid  flex items-center justify-center">
+      <audio
+            loop
+            id="presentation"
+            src={presentation}
+            style={{ display: "none" }}
+          ></audio>
         <div className="sideHome">
           <img className="w-100 mx-2" src={firstLogo} alt="" />
           <img className="w-100" src={secondLogo} alt="" />
@@ -370,9 +389,7 @@ export const Level3Component = ({ currentLevel }) => {
                       id="start-game"
                       className="timer-button"
                       disabled={gameStarted}
-                      onClick={() => {
-                        startCountdown(60);
-                      }}
+                    
                     >
                       Start {timeLeft}s
                     </button>

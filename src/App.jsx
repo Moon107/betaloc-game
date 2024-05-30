@@ -21,6 +21,7 @@ import { Level3Component } from "./Components/Level3Component/Level3Component.js
 import MyModal2 from "./Components/MyModal2/MyModal2.jsx";
 // import { Level4Component } from "./Components/Level4Component/Level4Component.jsx";
 import { Helmet } from 'react-helmet';
+import { PreLoader } from "./Components/PreLoader/PreLoader.jsx";
 
 
 
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/DoneModal" element={<DoneModal />} />
                 <Route path="/WrongModal" element={<WrongModal />} />
                 <Route path="/LoseModal" element={<LoseModal />} />
+                <Route path="/PreLoader" element={<PreLoader/>} />
               </Routes>
             </BrowserRouter>
           </UserNameProvider>

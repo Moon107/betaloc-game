@@ -2,7 +2,8 @@ import gsap from "gsap";
 
 const tl = gsap.timeline();
 
-export const preLoaderAnim = () => {
+export const preLoaderAnim = (onComplete) => {
+ 
     tl.to("body", {
         duration: 0.1,
         css: {overflowY: "hidden"},
@@ -37,6 +38,6 @@ export const preLoaderAnim = () => {
         duration: 1.5,
         height: "0vh",
         ease: "power3.inOut",
-      
+     
     })
 }
