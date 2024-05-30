@@ -17,7 +17,7 @@ import { LoseModal } from "../LoseModal/LoseModal";
 import UserNameContext from "../../Context/UserNameContext";
 import wrongClick from "../../audios/Losing.wav";
 import MyModal2 from "../MyModal2/MyModal2";
-import presentation from "../../audios/presentation.wav";
+import presentation from "../../audios/deal.mp3";
 
 const getDynamicFactor = (windowWidth) => {
   if (windowWidth <= 500) return 0.06;
@@ -300,7 +300,9 @@ export const Level2Component = ({ currentLevel }) => {
           setTimeLeft(0);
           const startButton = document.getElementById("start-game");
           startButton.innerHTML = "Start";
-          setShowWinModal(true);
+          setTimeout(() => {
+            setShowWinModal(true);
+          }, 2000);
           // localStorage.setItem("score", totalScore);
           setGameStarted(false);
         }

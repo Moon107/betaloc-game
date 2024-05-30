@@ -12,7 +12,7 @@ import UserNameContext from "../../Context/UserNameContext.js";
 import { LevelContext } from "../../Context/LevelContext.js";
 import can from "../../images/thumbnail1.jpg";
 import can1 from "../../images/thumbnail2.jpg";
-import can2 from "../../images/thumbnail3.jpg";
+import can2 from "../../images/Theme3.jpg";
 // import coinImage from "../../images/coin.svg";
 
 

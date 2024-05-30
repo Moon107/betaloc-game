@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import firstLogo from "../../images/Group18.png";
 import secondLogo from "../../images/VectorSmartObject.png";
 import logo from "../../images/Frame55.png";
-import can from "../../images/highRez.jpg";
+import can from "../../images/Theme3.jpg";
 import audioFile from "../../audios/collect-points.mp3";
 import { Link } from "react-router-dom";
 import { PreLoader } from "../PreLoader/PreLoader";
@@ -16,7 +16,7 @@ import { LevelContext } from "../../Context/LevelContext";
 import { LoseModal } from "../LoseModal/LoseModal";
 import UserNameContext from "../../Context/UserNameContext";
 import wrongClick from "../../audios/Losing.wav";
-import presentation from "../../audios/presentation.wav";
+import presentation from "../../audios/deal.mp3";
 
 const getDynamicFactor = (windowWidth) => {
   if (windowWidth <= 500) return 0.06;
@@ -285,7 +285,9 @@ export const Level3Component = ({ currentLevel }) => {
           setTimeLeft(0);
           const startButton = document.getElementById("start-game");
           startButton.innerHTML = "Start";
-          setShowWinModal(true);
+          setTimeout(() => {
+            setShowWinModal(true);
+          }, 2000);
           setGameStarted(false);
         }
         if (clickedCorrectly) {

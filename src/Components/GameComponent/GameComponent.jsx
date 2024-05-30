@@ -16,7 +16,7 @@ import { LevelContext } from "../../Context/LevelContext";
 import { LoseModal } from "../LoseModal/LoseModal";
 import UserNameContext from "../../Context/UserNameContext";
 import wrongClick from "../../audios/Losing.wav";
-import presentation from "../../audios/presentation.wav";
+import presentation from "../../audios/deal.mp3";
 
 
 
