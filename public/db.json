@@ -16,6 +16,30 @@
             "secondChoice": "B}  Second-line therapy",
             "thirdChoice": "C) Last line therapy",
             "correctChoice": "A)  First-line therapy"
+        },
+        {
+            "id":3,
+            "question":"  Betaloc ZOK is the only Beta-blocker approved with 7 indications including the following:",
+            "firstChoice": "A) Angina Pectoris, cardiac arrhythmias and hypertension",
+            "secondChoice": "B} Stable symptomatic chronic heart failure ",
+            "thirdChoice": "C)  Both A & B ",
+            "correctChoice": "C)  Both A & B "
+        },
+        {
+            "id":4,
+            "question": " According to the European Society of Cardiology, Attention to good blood pressure control is recommended in AF patients with hypertension to:",
+            "firstChoice": "A)   Reduce AF recurrences",
+            "secondChoice": "B}   Reduce the risk of stroke and bleeding. ",
+            "thirdChoice": "C) Both A & B",
+            "correctChoice": "C) Both A & B"
+        },
+        {
+            "id":5,
+            "question": "according to the ESC guidelines for rate control drugs in Atrial Fibrillation, Beta-blockers are the first line treatment with the following comorbidities EXCEPT:",
+            "firstChoice": "A)   Hypertension or HFpEF ",
+            "secondChoice": "B}   HFrEF ",
+            "thirdChoice": "C)  Asthma",
+            "correctChoice": "C)  Asthma"
         }
    
     ],
