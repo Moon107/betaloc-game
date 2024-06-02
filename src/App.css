@@ -149,7 +149,7 @@ html, body, #root {
 }
 .scoreContainer {
   position: fixed;
-  top: calc(100% - 160px);
+  top: calc(100% - 140px);
   right: 0px;
   background-color: white;
   color: black;
@@ -200,6 +200,9 @@ html, body, #root {
   animation: shake 0.5s; /* Apply the shake animation */
   animation-iteration-count: 5; 
   animation-duration: 1.3s;
+}
+.add-time{
+  background-color: #952264;
 }
 @keyframes shake {
   0% { transform: translateX(0); }

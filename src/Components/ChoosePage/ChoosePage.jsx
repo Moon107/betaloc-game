@@ -3,16 +3,12 @@ import firstLogo from "../../images/Group18.png";
 import secondLogo from "../../images/VectorSmartObject.png";
 import "../ChoosePage/ChoosePage.css";
 import { Link } from "react-router-dom";
-import firstPhoto from "../../images/Pharmacyv1.png";
-// import secondPhoto from "../../images/Pharmacyv2.png";
-import thirdPhoto from "../../images/Pharmacyv3.png";
-import fourthPhoto from "../../images/Pharmacyv4.png";
 import UserNameContext from "../../Context/UserNameContext.js";
 // import { ScoreContext } from '../../Context/ScoreContext';
 import { LevelContext } from "../../Context/LevelContext.js";
-import can from "../../images/thumbnail1.jpg";
-import can1 from "../../images/thumbnail2.jpg";
-import can2 from "../../images/thumbnail3.jpg";
+import can from "../../images/theme1.jpg";
+import can1 from "../../images/theme2.jpg";
+import can2 from "../../images/theme3.jpg";
 // import coinImage from "../../images/coin.svg";
 
 
@@ -28,12 +24,15 @@ export function ChoosePage() {
 
     if (localStorage.getItem("level") !== null) {
       const level = parseInt(localStorage.getItem("level"));
-      // console.log(level);
       setCompletedLevels((prevLevels) => [...prevLevels, level]);
       isLevelAvailable(level);
     }
     
   }, [setUserName]);
+
+  useEffect(() => {
+    localStorage.removeItem("answeredQuestions");
+  }, []);
 
   return (
     <>

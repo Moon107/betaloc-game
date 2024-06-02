@@ -8,7 +8,7 @@ import { WrongModal } from '../WrongModal/WrongModal';
 import { LoseModal } from '../LoseModal/LoseModal';
 
 
-const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, getFromChild, childQuestions }) => {
+const MyModal2 = ({ show, onClose, remainingItems, increaseTimer, restartGame, getFromChild, childQuestions, timeLeft, startCountdown }) => {
   const [displayData, setDisplayData] = useState([]);
   const [selectedChoice, setSelectedChoice] = useState('');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -16,17 +16,23 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
   const [showDoneModal, setShowDoneModal] = useState(false);
   const [showWrongModal, setShowWrongModal] = useState(false);
   const [showLoseModal, setShowLoseModal] = useState(false);
-  
+
   const [correctAnswer, setCorrectAnswer] = useState('');
 
 
   useEffect(() => {
+    const existingAnsweredQuestionsString = localStorage.getItem("answeredQuestions");
+    let existingAnsweredQuestions = [];
+    if (existingAnsweredQuestionsString) {
+      existingAnsweredQuestions = JSON.parse(existingAnsweredQuestionsString);
+    }
+
     axios.get('./db.json')
       .then(response => {
-        const filterData = response.data.content.filter((question) => {
-          return !childQuestions.includes(question.id);
+        const filterData = response.data.data.filter((question) => {
+          return !existingAnsweredQuestions.includes(question.id);
         })
-        if(filterData.length != 0){
+        if (filterData.length != 0) {
           const shuffledData = shuffleArray(filterData);
           setDisplayData(shuffledData);
           setShownQuestions([shuffledData[0].id]);
@@ -38,7 +44,7 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
   }, []);
 
 
-  
+
   const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
@@ -58,14 +64,14 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
   const handleSubmit = () => {
     const currentQuestion = displayData[currentQuestionIndex];
     if (selectedChoice === currentQuestion.correctChoice) {
-      
+
       setShowDoneModal(true);
 
     } else {
       setCorrectAnswer(currentQuestion.correctChoice);
       setShowWrongModal(true);
-      
-    
+
+
     }
   };
 
@@ -76,6 +82,15 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
     increaseTimer();
     const currentQuestion = displayData[currentQuestionIndex];
     getFromChild(currentQuestion.id)
+
+    const existingAnsweredQuestionsString = localStorage.getItem("answeredQuestions");
+    let existingAnsweredQuestions = [];
+    if (existingAnsweredQuestionsString) {
+      existingAnsweredQuestions = JSON.parse(existingAnsweredQuestionsString);
+    }
+    existingAnsweredQuestions.push(currentQuestion.id);
+    localStorage.setItem("answeredQuestions", JSON.stringify(existingAnsweredQuestions));
+
     setShowDoneModal(false);
     onClose();
   };
@@ -89,10 +104,26 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
       const currentQuestion = displayData[currentQuestionIndex];
       getFromChild(currentQuestion.id)
     }
-    if (nextQuestionIndex === -1) { // Check if all questions answered
-      setShowWrongModal(false); // Hide WrongModal if no more questions
-      setShowLoseModal(true); }
-   
+
+    const existingAnsweredQuestionsString = localStorage.getItem("answeredQuestions");
+    let existingAnsweredQuestions = [];
+    if (existingAnsweredQuestionsString) {
+      existingAnsweredQuestions = JSON.parse(existingAnsweredQuestionsString);
+    }
+    existingAnsweredQuestions.push(currentQuestion.id);
+    localStorage.setItem("answeredQuestions", JSON.stringify(existingAnsweredQuestions));
+
+    if (nextQuestionIndex === -1) {
+      setShowWrongModal(false);
+      if (timeLeft == -1) {
+        setShowLoseModal(true);
+      } else {
+        show = false;
+        onClose();
+        startCountdown(timeLeft);
+      }
+    }
+
   };
 
   const currentQuestion = displayData[currentQuestionIndex];
@@ -101,62 +132,62 @@ const MyModal2 = ({ show, onClose, remainingItems, increaseTimer , restartGame, 
 
     <div>
       <Modal className="modalBox" isOpen={show} onRequestClose={onClose}>
-      <div className='modalCotainer'>
-        <div className="content">
-          <h4>Time's Up!</h4>
-          <h4>Answer this question to get extra 15 seconds!</h4>
-          <div className='question'>
-            <h5>{currentQuestion.question}</h5>
-          </div>
-          <div className='list'>
-            <form>
-              <ol>
-                {[
-                  currentQuestion.firstChoice,
-                  currentQuestion.secondChoice,
-                  currentQuestion.thirdChoice,
-                ].map((choice, index) => (
-                  <li key={index}>
-                    <label>
-                      <input
-                        type="radio"
-                        name="letter"
-                        value={choice}
-                        checked={selectedChoice === choice}
-                        onChange={() => handleChange(choice)}
-                        className='mx-2'
-                      />
-                      {choice}
-                    </label>
-                  </li>
-                ))}
-              </ol>
-            </form>
-            <div>
-              <button className='plusButton'>+15</button>
+        <div className='modalCotainer'>
+          <div className="content">
+            <h4>Time's Up!</h4>
+            <h4>Answer this question to get extra 15 seconds!</h4>
+            <div className='question'>
+              <h5>{currentQuestion.question}</h5>
             </div>
+            <div className='list'>
+              <form>
+                <ol>
+                  {[
+                    currentQuestion.firstChoice,
+                    currentQuestion.secondChoice,
+                    currentQuestion.thirdChoice,
+                  ].map((choice, index) => (
+                    <li key={index}>
+                      <label>
+                        <input
+                          type="radio"
+                          name="letter"
+                          value={choice}
+                          checked={selectedChoice === choice}
+                          onChange={() => handleChange(choice)}
+                          className='mx-2'
+                        />
+                        {choice}
+                      </label>
+                    </li>
+                  ))}
+                </ol>
+              </form>
+              <div>
+                <button className='plusButton'>+15</button>
+              </div>
+            </div>
+            {remainingItems > 0 && <p>Remaining Items: {remainingItems}</p>}
+            <button onClick={handleSubmit} className='btn btn-warning text-black' disabled={selectedChoice === ''}>Submit</button>
           </div>
-          {remainingItems > 0 && <p>Remaining Items: {remainingItems}</p>}
-          <button onClick={handleSubmit} className='btn btn-warning text-black'>Submit</button>
+
         </div>
-        
-      </div>
-    </Modal>
-    {showDoneModal && (
+      </Modal>
+      {showDoneModal && (
         <DoneModal show={showDoneModal} onClose={() => setShowDoneModal(false)} onContinue={handleContinue} />
       )}
-       {showWrongModal && (
+      {showWrongModal && (
         <WrongModal show={showWrongModal} onClose={() => setShowWrongModal(false)} onContinue={handleWrongContinue} correctAnswer={correctAnswer} />
       )}
-       {showLoseModal && (
+      {showLoseModal && (
         <LoseModal show={showLoseModal} onClose={() => setShowLoseModal(false)} onContinue={handleWrongContinue} restartGame={restartGame} />
       )}
-     
+
     </div>
 
-  
 
-   
+
+
 
   );
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import firstLogo from "../../images/Group18.png";
 import secondLogo from "../../images/VectorSmartObject.png";
 import logo from "../../images/Frame55.png";
-import can from "../../images/SecThemeHigh.jpg";
+import can from "../../images/theme2.jpg";
 import audioFile from "../../audios/collect-points.mp3";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { PreLoader } from "../PreLoader/PreLoader";
@@ -18,6 +18,7 @@ import UserNameContext from "../../Context/UserNameContext";
 import wrongClick from "../../audios/Losing.wav";
 import MyModal2 from "../MyModal2/MyModal2";
 import presentation from "../../audios/presentation.wav";
+import axios from "axios";
 
 const getDynamicFactor = (windowWidth) => {
   if (windowWidth <= 500) return 0.06;
@@ -55,6 +56,13 @@ export const Level2Component = ({ currentLevel }) => {
   const initialCanvasWidth = 960;
   const initialCanvasHeight = 540;
 
+  const existingAnsweredQuestionsString = localStorage.getItem("answeredQuestions");
+  let existingAnsweredQuestions = [];
+  if (existingAnsweredQuestionsString) {
+      existingAnsweredQuestions = JSON.parse(existingAnsweredQuestionsString);
+  }
+
+
   // Set initial canvas size based on the window size
 
   // const [canvasSize, setCanvasSize] = useState({
@@ -77,13 +85,13 @@ export const Level2Component = ({ currentLevel }) => {
 
   const [canvasSize, setCanvasSize] = useState(calculateCanvasSize);
   const circlePositions = [
-    { x: 711, y: 481 },
-    { x: 65, y: 412 },
-    { x: 306, y: 302 },
+    { x: 715, y: 479 },
+    { x: 65, y: 390 },
+    { x: 300, y: 295 },
     { x: 132, y: 50 },
-    { x: 196, y: 259 },
-    { x: 631, y: 134 },
-    { x: 560, y: 186 },
+    { x: 190, y: 259 },
+    { x: 628, y: 134 },
+    { x: 570, y: 180 },
     { x: 899, y: 329 },
     { x: 471, y: 95 },
     { x: 472, y: 359 },
@@ -98,23 +106,23 @@ export const Level2Component = ({ currentLevel }) => {
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
 
- 
-//   const handleClickCounter = () => {
 
-//   console.log("test");
-//     setClickCounter((prevCounter) => {
-//       const newCounter = prevCounter + 1;
-//       return newCounter;
-//     });
-  
-//   if(clickCounter >= 1 ) {
-//     startCountdown(15)
-//   } else {
-//     startCountdown(30)
-//   }
+  //   const handleClickCounter = () => {
+
+  //   console.log("test");
+  //     setClickCounter((prevCounter) => {
+  //       const newCounter = prevCounter + 1;
+  //       return newCounter;
+  //     });
+
+  //   if(clickCounter >= 1 ) {
+  //     startCountdown(15)
+  //   } else {
+  //     startCountdown(30)
+  //   }
 
 
-// }
+  // }
 
 
   useEffect(() => {
@@ -129,13 +137,13 @@ export const Level2Component = ({ currentLevel }) => {
     image.onerror = (error) => {
       console.error("Failed to load image", error);
     };
-   
+
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
- 
+
   }, []);
 
   // Adjust canvas size when `canvasSize` state changes
@@ -158,14 +166,28 @@ export const Level2Component = ({ currentLevel }) => {
   }
 
   const increaseTimer = () => {
-    setTimeLeft(15); // Increase timer by 10 seconds
-    startCountdown(15);
+    setTimeLeft((prev) => prev + 15); // Increase timer by 10 seconds
+    startCountdown(timeLeft + 15);
   };
 
   const handleWin = () => {
     // localStorage.setItem('level', currentLevel + 1);
     completeLevel(currentLevel + 1); // Example: if this is level 1, mark level 2 as available
     localStorage.setItem("score", score);
+
+    // axios
+    //   .post("http://127.0.0.1:8000/api/visitor", {
+    //     id: localStorage.getItem("userId"),
+    //     name: userName,
+    //     score: score,
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //     localStorage.setItem("userId", response.data.data.id);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   const handleLose = () => {
@@ -187,11 +209,11 @@ export const Level2Component = ({ currentLevel }) => {
     startButton.innerHTML = `
       <div class="countdown" id="countdown">
           <span id="minutes">${Math.floor(time / 60)
-            .toString()
-            .padStart(2, "0")}</span> <span>m</span> :
+        .toString()
+        .padStart(2, "0")}</span> <span>m</span> :
           <span id="seconds">${(time % 60)
-            .toString()
-            .padStart(2, "0")}</span> <span>s</span>
+        .toString()
+        .padStart(2, "0")}</span> <span>s</span>
       </div>
     `;
     intervalRef.current = setInterval(() => {
@@ -208,6 +230,8 @@ export const Level2Component = ({ currentLevel }) => {
         .toString()
         .padStart(2, "0");
 
+      setTimeLeft(seconds);
+
       // Check if the countdown is complete
       if (distance <= 0) {
         // Clear the interval and change the button text when the countdown is finished
@@ -216,10 +240,6 @@ export const Level2Component = ({ currentLevel }) => {
         setGameStarted(false);
         setCompleteCountDown(true);
 
-        if (childQuestions.length == 3) {
-          setShowLoseModal(true);
-        }
-
         if (correctSelections > 0) {
           setShowModal(true); // Show modal when countdown is finished and there are remaining items
         }
@@ -227,8 +247,14 @@ export const Level2Component = ({ currentLevel }) => {
     }, 1000);
   };
 
+  useEffect(() => {
+    if (existingAnsweredQuestions.length == 5 && timeLeft == -1) {
+      setShowLoseModal(true);
+    }
+  }, [childQuestions, timeLeft]);
+
   const handleAnimationComplete = (isComplete) => {
-    if(isComplete) {
+    if (isComplete) {
       startCountdown(30)
       const presentation = document.getElementById("presentation");
       presentation.play();
@@ -247,7 +273,7 @@ export const Level2Component = ({ currentLevel }) => {
     const wrong = document.getElementById("wrongSound");
     let clickedCorrectly = false;
     const ctx = ctxRef.current;
-    const tolerance = 20; // Adjust tolerance as needed
+    const tolerance = 30; // Adjust tolerance as needed
 
     // Calculate scaling factors
     const scaleX = canvasSize.width / initialCanvasWidth;
@@ -259,8 +285,8 @@ export const Level2Component = ({ currentLevel }) => {
       y: position.y * scaleY,
     }));
 
-    console.log("Clicked Position:", { clickedX, clickedY });
-    console.log("Scaled Positions:", scaledPositions);
+    // console.log("Clicked Position:", { clickedX, clickedY });
+    // console.log("Scaled Positions:", scaledPositions);
 
     // Check if the position was already clicked
     const positionAlreadyClicked = clickedPositions.some(
@@ -279,7 +305,7 @@ export const Level2Component = ({ currentLevel }) => {
         Math.abs(clickedY - position.y) < tolerance
       ) {
         ctx.beginPath();
-        ctx.arc(position.x, position.y, 22, 0, Math.PI * 2);
+        ctx.arc(position.x, position.y, 24, 0, Math.PI * 2);
         ctx.strokeStyle = "red";
         ctx.lineWidth = 3;
         ctx.stroke();
@@ -309,7 +335,6 @@ export const Level2Component = ({ currentLevel }) => {
         // setScore(newScore);
         // localStorage.setItem("score", newScore);
         if (clickedCorrectly) {
-          console.log(clicks);
           const newScore = score + 10;
           addScore(10);
 
@@ -338,13 +363,16 @@ export const Level2Component = ({ currentLevel }) => {
     setShowLoseModal(false);
     setClicks(0);
     setCorrectSelections(10);
-    setTimeLeft(60);
+    // setTimeLeft(60);
+    // handleStartAfterLose();
     setScore(0);
     setSelectedBoxes(0); // Reset selected boxes
     setChildQuetions([]);
     setClickedPositions([]);
     setShowLoseModal(false);
     localStorage.setItem("score", 0);
+    startCountdown(30);
+    localStorage.removeItem("answeredQuestions");
 
     const ctx = ctxRef.current;
     const canvas = canvasRef.current;
@@ -353,111 +381,118 @@ export const Level2Component = ({ currentLevel }) => {
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
   };
 
+  const stopCountdown = () => {
+    clearInterval(intervalRef.current);
+    setGameStarted(false);
+  };
+
+  const addTime = () => {
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    setTimeLeft((prev) => prev + seconds);
+    stopCountdown();
+    setShowModal(true);
+  };
+
   return (
     <div className="box overflow-auto ">
-     <PreLoader handleAnimationComplete={handleAnimationComplete} />
-    <div className="container-fluid  flex items-center justify-center">
-    <audio
-            loop
-            id="presentation"
-            src={presentation}
-            style={{ display: "none" }}
-          ></audio>
-      <div className="sideHome">
-        <img className="w-100 mx-2" src={firstLogo} alt="" />
-        <img className="w-100" src={secondLogo} alt="" />
+      <PreLoader handleAnimationComplete={handleAnimationComplete} />
+      <div className="container-fluid  flex items-center justify-center">
+        <audio
+          loop
+          id="presentation"
+          src={presentation}
+          style={{ display: "none" }}
+        ></audio>
+        <div className="sideHome">
+          <img className="w-100 mx-2" src={firstLogo} alt="" />
+          <img className="w-100" src={secondLogo} alt="" />
 
-      </div>
-      <div className="gamContent">
+        </div>
+        <div className="gamContent">
 
-        <div className="row">
-          <div className="col-md-12 block">
-            <div className="titleZok">
-              <h4>Where is Betaloc ZOK?</h4>
-              <h5>Choose as much as Betaloc ZOK boxes as you can </h5>
+          <div className="row">
+            <div className="col-md-12 block">
+              <div className="titleZok">
+                <h4>Where is Betaloc ZOK?</h4>
+                <h5>Choose as much as Betaloc ZOK boxes as you can </h5>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="row justify-center items-center">
-          <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9 boxImageee" >
-            <img id="scream" src={can} alt="" style={{ display: "none" }} />
-            <audio id="fileSound" src={audioFile} style={{ display: "none" }}></audio>
-            <audio id="wrongSound" src={wrongClick} style={{ display: "none" }}></audio>
-            <canvas
-              ref={canvasRef}
-              id="canvas"
-              width={canvasSize.width}
-              height={canvasSize.height}
-              onClick={handleCanvasClick}
-            ></canvas>
-          </div>
-          <div className="col-12 col-lg-7 col-xl-3">
-               <div className="timeBox">
-               <div className="betalContainer">
-            <div className="countButton" id="counter-button">
-              <h5>Maximum of <span className="number">   {correctSelections}</span> Boxes </h5>
-              <div className="logoDescr">
-                <img  src={logo} alt="Description" />
-              </div>
-
-              </div>
-              <div className="timerBox">
-                  <button
-                    id="start-game"
-                    className="timer-button"
-                    disabled={gameStarted}
-                  
-                  >
-                    Start {timeLeft}s
-                  </button>
-                  <h6 className="italic mt-2 clickText">Click here to start the Game</h6>
+          <div className="row justify-center items-center">
+            <div className="col-12 col-sm-10 col-lg-11 p-1 col-xl-9 boxImageee" >
+              <img id="scream" src={can} alt="" style={{ display: "none" }} />
+              <audio id="fileSound" src={audioFile} style={{ display: "none" }}></audio>
+              <audio id="wrongSound" src={wrongClick} style={{ display: "none" }}></audio>
+              <canvas
+                ref={canvasRef}
+                id="canvas"
+                width={canvasSize.width}
+                height={canvasSize.height}
+                onClick={handleCanvasClick}
+              ></canvas>
+            </div>
+            <div className="col-12 col-lg-7 col-xl-3">
+              <div className="timeBox">
+                <div className="betalContainer">
+                  <div className="countButton" id="counter-button">
+                    <h5>Maximum of <span className="number">   {correctSelections}</span> Boxes </h5>
+                    <div className="logoDescr">
+                      <img src={logo} alt="Description" />
+                    </div>
+                  </div>
+                  <div className="timerBox">
+                    <button
+                      id="start-game"
+                      className="timer-button"
+                      disabled={gameStarted}
+                    >
+                      Start {timeLeft}s
+                    </button>
+                    <br />
+                    <button className={`add-time px-3 py-2 rounded-md mt-3 ${existingAnsweredQuestions.length == 5 ? 'd-none' : ''}`}
+                      onClick={addTime}
+                    >
+                      Add Time
+                    </button>
+                  </div>
                 </div>
-               </div>
-              
-
-            </div>
-
-            
-          </div>
-          
-        </div>
-
-       <div className="row justify-center items-center buttonBox">
-          <div className="col-12 col-lg-3">
-            <div className="buttonBN">
-              <div className="text-center">
-                <Link to="/ChoosePage">
-                  <button onClick={() => clearInterval(intervalRef.current)} className="btn btn-light backbutton ">
-                    Back
-                  </button>
-                </Link>
               </div>
-           
             </div>
           </div>
-          <div className="col-12 col-lg-3">  
-           <div className="text-center buttonBN">
+
+          <div className="row justify-center items-center buttonBox">
+            <div className="col-12 col-lg-3">
+              <div className="buttonBN">
+                <div className="text-center">
+                  <Link to="/ChoosePage">
+                    <button onClick={() => clearInterval(intervalRef.current)} className="btn btn-light backbutton ">
+                      Back
+                    </button>
+                  </Link>
+                </div>
+
+              </div>
+            </div>
+            <div className="col-12 col-lg-3">
+              <div className="text-center buttonBN">
                 <Link to="/Level3Component">
                   {selectedBoxes >= 6 && (
                     <button id="next-level-button" className=" nextButtonGame" onClick={handleWin}>To Next Level</button>
                   )}
                 </Link>
               </div>
-              </div>
+            </div>
+          </div>
         </div>
 
-    
-
-      </div>
-      
-      <div className="scoreContainer">
-        <h5>Your Score <span className="scoreValue">{score}</span></h5>
-        <div>
-          <img className="coinImage" src={coin} alt="" />
+        <div className="scoreContainer">
+          <h5>Your Score <span className="scoreValue">{score}</span></h5>
+          <div>
+            <img className="coinImage" src={coin} alt="" />
+          </div>
         </div>
       </div>
-    </div>
       <button
         style={{ display: "none" }}
         onClick={() => handleGameEnd(true)}
@@ -466,8 +501,10 @@ export const Level2Component = ({ currentLevel }) => {
         style={{ display: "none" }}
         onClick={() => handleGameEnd(false)}
       ></button>
-      {showModal && completeCountDown && correctSelections > 0 && (
+      {/* && completeCountDown && correctSelections > 0 */}
+      {showModal && (
         <MyModal2
+          timeLeft={timeLeft}
           childQuestions={childQuestions}
           getFromChild={getFromChild}
           show={showModal}
@@ -475,6 +512,7 @@ export const Level2Component = ({ currentLevel }) => {
           remainingItems={remainingItems}
           increaseTimer={increaseTimer}
           restartGame={restartGame}
+          startCountdown={startCountdown}
         >
           <h2>Test Modal</h2>
         </MyModal2>
@@ -504,6 +542,7 @@ export const Level2Component = ({ currentLevel }) => {
         <LoseModal
           show={showLoseModal}
           onClose={() => setShowLoseModal(false)}
+          restartGame={restartGame}
         />
       )}
     </div>
