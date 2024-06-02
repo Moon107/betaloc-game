@@ -175,21 +175,39 @@ export const Level2Component = ({ currentLevel }) => {
     completeLevel(currentLevel + 1); // Example: if this is level 1, mark level 2 as available
     localStorage.setItem("score", score);
 
-    // axios
-    //   .post("http://127.0.0.1:8000/api/visitor", {
-    //     id: localStorage.getItem("userId"),
-    //     name: userName,
-    //     score: score,
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     localStorage.setItem("userId", response.data.data.id);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-  };
 
+    axios
+      .post("http://betaloc-game.local/api/visitors", {
+        id: localStorage.getItem("userId"),
+        name: userName,
+        score: score,
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("userId", response.data.data.id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      handleData();
+  }
+  const handleData = () => {
+    
+    axios
+      .get("http://betaloc-game.local/api/visitors", {
+        id: localStorage.getItem("userId"),
+        name: userName,
+        score: score,
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("userId", response.data.data.id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   const handleLose = () => {
     setShowLoseModal(true);
   };

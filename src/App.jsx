@@ -33,7 +33,7 @@ function App() {
       <LevelProvider>
         <ScoreProvider>
           <UserNameProvider>
-            <BrowserRouter basename="/betaloc-game">
+            <BrowserRouter >
 
               <Routes>
                 <Route index element={<Home />} />

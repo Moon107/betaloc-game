@@ -12,37 +12,39 @@ import axios from 'axios';
 
 export const WinModal = ({ show, onClose, restartGame, currentLevel }) => {
 
-  const { score, totalScore } = useContext(ScoreContext);
+  const { score, totalScore, setScore } = useContext(ScoreContext);
   const { completeLevel } = useContext(LevelContext);
   const navigate = useNavigate();
 
-  // const postVisitorScore = () => {
-  //   axios
-  //     .post("http://127.0.0.1:8000/api/visitor", {
-  //       id: localStorage.getItem("userId"),
-  //       name: localStorage.getItem("userName"),
-  //       score: score,
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       localStorage.setItem("userId", response.data.data.id);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }
+  const postVisitorScore = () => {
+
+    axios
+      .post("http://betaloc-game.local/api/visitors", {
+        id: localStorage.getItem("userId"),
+        name: localStorage.getItem("userName"),
+        score: score,
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("userId", response.data.data.id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
 
   const handleReturn = () => {
-    // postVisitorScore();
+    postVisitorScore();
     localStorage.setItem("score", 0);
+    setScore(0);
   }
 
   const handleNextLevel = () => {
     completeLevel(currentLevel + 1);
     localStorage.setItem("score", totalScore);
     navigate(`/Level${currentLevel + 1}Component`); // Adjust the route according to your setup
-    // postVisitorScore();
+    postVisitorScore();
     onClose();
   };
 
@@ -63,7 +65,7 @@ export const WinModal = ({ show, onClose, restartGame, currentLevel }) => {
               <div className="totalScore mr-5 ">
                 <h4>Total Score </h4> {/* Display total score after third level */}
                 <div className='scoreBox'>
-                  <span className='scoreNum'>{totalScore}</span>
+                  <span className='scoreNum'>{score}</span>
                   <img className="coinImage3" src={coin} alt="" />
                 </div>
 

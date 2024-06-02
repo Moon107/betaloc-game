@@ -2,7 +2,6 @@
   "name": "project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://orevan.net/test_game",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@testing-library/jest-dom": "^5.17.0",
@@ -29,8 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve-json": "json-server --watch db.json ",
-    "dev": "concurrently \"npm run react\" \"npm run server\""
+    "serve-json": "json-server --watch db.json "
+  
   },
   "eslintConfig": {
     "extends": [

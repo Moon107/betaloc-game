@@ -17,6 +17,7 @@ import { LoseModal } from "../LoseModal/LoseModal";
 import UserNameContext from "../../Context/UserNameContext";
 import wrongClick from "../../audios/Losing.wav";
 import presentation from "../../audios/presentation.wav";
+import axios from "axios";
 
 const getDynamicFactor = (windowWidth) => {
   if (windowWidth <= 500) return 0.06;
@@ -171,7 +172,41 @@ export const Level3Component = ({ currentLevel }) => {
     // localStorage.setItem('level', currentLevel + 1);
     completeLevel(currentLevel + 1); // Example: if this is level 1, mark level 2 as available
     localStorage.setItem("score", score);
-  };
+   
+
+
+    axios
+      .post("http://betaloc-game.local/api/visitors", {
+        id: localStorage.getItem("userId"),
+        name: userName,
+        score: score,
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("userId", response.data.data.id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+ 
+      handleData();
+  }
+  const handleData = () => {
+    
+    axios
+      .get("http://betaloc-game.local/api/visitors", {
+        id: localStorage.getItem("userId"),
+        name: userName,
+        score: score,
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("userId", response.data.data.id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   const handleLose = () => {
     setShowLoseModal(true);

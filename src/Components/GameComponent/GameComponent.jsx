@@ -169,25 +169,84 @@ export const GameComponent = ({ currentLevel }) => {
     startCountdown(timeLeft + 15);
   };
 
+
+
   const handleWin = () => {
     // localStorage.setItem('level', currentLevel + 1);
     completeLevel(currentLevel + 1); // Example: if this is level 1, mark level 2 as available
     localStorage.setItem("score", score);
 
-    // axios
-    //   .post("http://127.0.0.1:8000/api/visitor", {
-    //     id: localStorage.getItem("userId"),
-    //     name: userName,
-    //     score: score,
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     localStorage.setItem("userId", response.data.data.id);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-  };
+
+    axios
+      .post("http://betaloc-game.local/api/visitors", {
+        id: localStorage.getItem("userId"),
+        name: userName,
+        score: score,
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("userId", response.data.data.id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      handleData();
+  }
+  const handleData = () => {
+    
+    axios
+      .get("http://betaloc-game.local/api/visitors", {
+        id: localStorage.getItem("userId"),
+        name: userName,
+        score: score,
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("userId", response.data.data.id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+
+  // const handleChange = () => {
+  //   setFormData({...formData, })
+    
+  // }
+
+  //  const  handleWin =  async () => {
+  //   // localStorage.setItem('level', currentLevel + 1);
+  //   completeLevel(currentLevel + 1); // Example: if this is level 1, mark level 2 as available
+  //   localStorage.setItem("score", score);
+  //   // handleChange();
+
+
+  //   try {
+  //     const response = await axios.post("http://localhost:3000/score",   {
+  //       name: localStorage.getItem("userName"),
+  //       totalScore: score,
+  //       totalScoreLevel1: 0,
+  //       totalScoreLevel2:0,
+  //       totalScoreLevel3: 0,
+      
+    
+  //     });
+  //     console.log(response.data);
+  
+   
+  //   } catch (error) {
+  //     console.error('Error adding user:', error);
+      
+  //   }
+
+    
+  
+    
+
+   
+  
 
   const handleLose = () => {
     setShowLoseModal(true);
@@ -496,7 +555,7 @@ export const GameComponent = ({ currentLevel }) => {
           </div>
           <div className="scoreContainer">
             <h5>
-              Your Score <span className="scoreValue">{score}</span>
+              Your Score <span  className="scoreValue">{score}</span>
             </h5>
             <div>
               <img className="coinImage" src={coin} alt="" />
