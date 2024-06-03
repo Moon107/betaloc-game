@@ -38,7 +38,7 @@
   }
   .sideHome {
     position: fixed;
-    top: calc(100% - 100px);;
+    top: calc(100% - 80px);;
     right: 0px;
     padding: 10px;
     background-color: white;

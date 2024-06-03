@@ -16,8 +16,8 @@ export const DoneModal = ({ show, onClose, onContinue   }) => {
                 </div>
                 <div>
                
-                <p className='paragraph'>You’ve added 30 sec</p>
-                 <span className='plus'>+30</span>
+                <p className='paragraph'>You’ve added 15 sec</p>
+                 <span className='plus'>+15</span>
                 </div>
                
                 <button onClick={ onContinue }  className=' ContinueButton'>Continue</button>
