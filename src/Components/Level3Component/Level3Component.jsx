@@ -176,7 +176,7 @@ export const Level3Component = ({ currentLevel }) => {
 
 
     axios
-      .post("http://betaloc-game.local/api/visitors", {
+      .post("https://betalocgame.orevan.net/api/visitors", {
         id: localStorage.getItem("userId"),
         name: userName,
         score: score,
@@ -194,7 +194,7 @@ export const Level3Component = ({ currentLevel }) => {
   const handleData = () => {
     
     axios
-      .get("http://betaloc-game.local/api/visitors", {
+      .get("https://betalocgame.orevan.net/api/visitors", {
         id: localStorage.getItem("userId"),
         name: userName,
         score: score,

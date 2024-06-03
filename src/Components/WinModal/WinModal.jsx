@@ -19,7 +19,7 @@ export const WinModal = ({ show, onClose, restartGame, currentLevel }) => {
   const postVisitorScore = () => {
 
     axios
-      .post("http://betaloc-game.local/api/visitors", {
+      .post("https://betalocgame.orevan.net/api/visitors", {
         id: localStorage.getItem("userId"),
         name: localStorage.getItem("userName"),
         score: score,
